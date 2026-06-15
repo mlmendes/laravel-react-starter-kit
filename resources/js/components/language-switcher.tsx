@@ -74,9 +74,7 @@ export function LanguageSwitcher({ inHeader = false }: TeamSwitcherProps) {
                     >
                         <span
                             className={
-                                inHeader
-                                    ? 'hidden'
-                                    : 'truncate font-semibold'
+                                inHeader ? 'hidden' : 'truncate font-semibold'
                             }
                         >
                             {languages.find(

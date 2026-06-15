@@ -211,7 +211,7 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
                                 ))}
                             </div>
                         </div>
-                        <LanguageSwitcher inHeader/>
+                        <LanguageSwitcher inHeader />
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <Button

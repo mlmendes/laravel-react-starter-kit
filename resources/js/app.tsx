@@ -66,4 +66,3 @@ i18n.use(Backend)
         // This will set light / dark mode on load...
         initializeTheme();
     });
-
