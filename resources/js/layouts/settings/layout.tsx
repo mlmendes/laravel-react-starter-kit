@@ -11,27 +11,27 @@ import { edit } from '@/routes/profile';
 import { edit as editSecurity } from '@/routes/security';
 import type { NavItem } from '@/types';
 
+const sidebarNavItems: NavItem[] = [
+    {
+        title: 'Profile',
+        href: edit(),
+        icon: null,
+    },
+    {
+        title: 'Security',
+        href: editSecurity(),
+        icon: null,
+    },
+    {
+        title: 'Appearance',
+        href: editAppearance(),
+        icon: null,
+    },
+];
+
 export default function SettingsLayout({ children }: PropsWithChildren) {
     const { t } = useTranslation();
     const { isCurrentOrParentUrl } = useCurrentUrl();
-
-    const sidebarNavItems: NavItem[] = [
-        {
-            title: t('Profile'),
-            href: edit(),
-            icon: null,
-        },
-        {
-            title: t('Security'),
-            href: editSecurity(),
-            icon: null,
-        },
-        {
-            title: t('Appearance'),
-            href: editAppearance(),
-            icon: null,
-        },
-    ];
 
     return (
         <div className="px-4 py-6">
