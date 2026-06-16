@@ -71,7 +71,7 @@ i18n.use(Backend)
                 return (
                     <TooltipProvider delayDuration={0}>
                         {app}
-                        <Toaster />
+                        <Toaster richColors />
                     </TooltipProvider>
                 );
             },
