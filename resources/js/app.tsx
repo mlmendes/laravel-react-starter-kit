@@ -11,7 +11,24 @@ import AuthLayout from '@/layouts/auth-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import pt_BR from '@lang/pt_BR.json';
 
+type TranslationResource = string | { [key: string]: TranslationResource };
+
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+
+const convertLaravelPlaceholders = (
+    obj: TranslationResource,
+): TranslationResource => {
+    if (typeof obj === 'string') {
+        return obj.replace(/:([a-zA-Z_]\w*)/g, '{{$1}}');
+    }
+
+    const entries = Object.entries(obj).map(([key, value]) => [
+        key,
+        convertLaravelPlaceholders(value),
+    ]);
+
+    return Object.fromEntries(entries);
+};
 
 i18n.use(Backend)
     .use(LanguageDetector)
@@ -31,7 +48,7 @@ i18n.use(Backend)
             lookupCookie: 'locale',
         },
         resources: {
-            pt: { translation: pt_BR },
+            pt: { translation: convertLaravelPlaceholders(pt_BR) },
         },
     })
     .then(() => {
