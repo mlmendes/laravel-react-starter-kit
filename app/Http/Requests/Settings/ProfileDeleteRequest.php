@@ -10,6 +10,13 @@ class ProfileDeleteRequest extends FormRequest
 {
     use PasswordValidationRules;
 
+    public function attributes(): array
+    {
+        return [
+            'password' => __('Password'),
+        ];
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

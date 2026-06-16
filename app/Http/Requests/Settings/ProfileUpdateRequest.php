@@ -10,6 +10,14 @@ class ProfileUpdateRequest extends FormRequest
 {
     use ProfileValidationRules;
 
+    public function attributes(): array
+    {
+        return [
+            'name' => __('Name'),
+            'email' => __('Email address'),
+        ];
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

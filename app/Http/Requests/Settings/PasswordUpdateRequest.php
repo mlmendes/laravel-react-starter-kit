@@ -10,6 +10,14 @@ class PasswordUpdateRequest extends FormRequest
 {
     use PasswordValidationRules;
 
+    public function attributes(): array
+    {
+        return [
+            'current_password' => __('Current password'),
+            'password' => __('New password'),
+        ];
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
