@@ -5,6 +5,7 @@ import { AppSidebarHeader } from '@/components/app-sidebar-header';
 import type { AppLayoutProps } from '@/types';
 
 export default function AppSidebarLayout({
+    action,
     children,
     breadcrumbs = [],
 }: AppLayoutProps) {
@@ -12,7 +13,7 @@ export default function AppSidebarLayout({
         <AppShell variant="sidebar">
             <AppSidebar />
             <AppContent variant="sidebar" className="overflow-x-hidden">
-                <AppSidebarHeader breadcrumbs={breadcrumbs} />
+                <AppSidebarHeader action={action} breadcrumbs={breadcrumbs} />
                 {children}
             </AppContent>
         </AppShell>

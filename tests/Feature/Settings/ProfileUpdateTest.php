@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+
 use function Pest\Laravel\assertSoftDeleted;
 
 test('profile page is displayed', function () {

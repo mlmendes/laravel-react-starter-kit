@@ -1,7 +1,9 @@
 import type { ReactNode } from 'react';
 import type { BreadcrumbItem } from '@/types/navigation';
+import type { RouteDefinition } from '@/wayfinder';
 
 export type AppLayoutProps = {
+    action?: RouteDefinition<'get'> | undefined;
     children: ReactNode;
     breadcrumbs?: BreadcrumbItem[];
 };

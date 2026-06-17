@@ -1,10 +1,14 @@
 import { Breadcrumbs } from '@/components/breadcrumbs';
+import CreateButton from '@/components/create-button';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import type { BreadcrumbItem as BreadcrumbItemType } from '@/types';
+import type { RouteDefinition } from '@/wayfinder';
 
 export function AppSidebarHeader({
+    action,
     breadcrumbs = [],
 }: {
+    action?: RouteDefinition<'get'>;
     breadcrumbs?: BreadcrumbItemType[];
 }) {
     return (
@@ -12,6 +16,9 @@ export function AppSidebarHeader({
             <div className="flex items-center gap-2">
                 <SidebarTrigger className="-ml-1" />
                 <Breadcrumbs breadcrumbs={breadcrumbs} />
+            </div>
+            <div className="ms-auto inline-flex gap-3">
+                {action && <CreateButton route={action} />}
             </div>
         </header>
     );

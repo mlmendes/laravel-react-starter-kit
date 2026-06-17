@@ -1,4 +1,6 @@
-export type User = {
+import type { SoftDeletable } from '@/types/navigation';
+
+export type User = SoftDeletable & {
     uuid: string;
     name: string;
     email: string;
