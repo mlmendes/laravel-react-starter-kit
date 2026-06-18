@@ -3,6 +3,8 @@
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+use function Pest\Laravel\from;
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -47,4 +49,19 @@ expect()->extend('toBeOne', function () {
 function something()
 {
     // ..
+}
+
+function savePassword(string $password): void
+{
+    $queryString = parse_url(test()->welcomeNotification->showWelcomeFormUrl, PHP_URL_QUERY);
+    parse_str($queryString, $queryParams);
+    from(test()->welcomeNotification->showWelcomeFormUrl)->post(route('welcome.store', [
+        'user' => test()->user,
+        'expires' => $queryParams['expires'],
+        'signature' => $queryParams['signature'],
+    ]), [
+        'password' => $password,
+        'password_confirmation' => $password,
+    ])
+        ->assertRedirectToRoute('dashboard');
 }

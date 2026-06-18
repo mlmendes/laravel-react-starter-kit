@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Pagination\CursorPaginator;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 
 readonly class UserService
@@ -25,8 +26,10 @@ readonly class UserService
     public function save(array $data): User
     {
         $data['password'] = Hash::make('');
+        $user = $this->userRepository->save($data);
+        $user->sendWelcomeNotification(Carbon::now()->addDay());
 
-        return $this->userRepository->save($data);
+        return $user;
     }
 
     /**
