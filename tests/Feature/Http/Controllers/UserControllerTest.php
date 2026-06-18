@@ -13,7 +13,6 @@ test('can access users index', function () {
 });
 
 test('can create user', function () {
-    $this->withoutExceptionHandling();
     $this->actingAs($this->authUser)
         ->get(route('users.create'))
         ->assertOk();
