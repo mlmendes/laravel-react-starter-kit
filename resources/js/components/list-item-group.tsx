@@ -30,7 +30,7 @@ type InfiniteItemListProps<T> = {
     schema: ItemSchema<T>;
 };
 
-export function ListItemGroup<T extends SoftDeletable>({
+export function ListItemGroup<T>({
     data,
     onItemHover,
     onItemLeave,
@@ -65,7 +65,11 @@ export function ListItemGroup<T extends SoftDeletable>({
             preserveUrl
         >
             <ItemGroup>
-                {data.map((row, index) => (
+                {data.map((row, index) => {
+                    const itemData = row as T & Partial<SoftDeletable>;
+                    const isSoftDeleted = Boolean(itemData.deleted_at);
+
+                    return (
                     <Item
                         key={index}
                         onMouseOver={() => onItemHover?.(row)}
@@ -80,7 +84,7 @@ export function ListItemGroup<T extends SoftDeletable>({
                             {schema.description && (
                                 <ItemDescription
                                     className={cn(
-                                        row.deleted_at && 'text-destructive',
+                                        isSoftDeleted && 'text-destructive',
                                     )}
                                 >
                                     {schema.description(row)}
@@ -89,7 +93,7 @@ export function ListItemGroup<T extends SoftDeletable>({
                             <div
                                 className={cn(
                                     'mt-2 space-y-1 text-sm',
-                                    row.deleted_at
+                                    isSoftDeleted
                                         ? 'text-destructive'
                                         : 'text-muted-foreground',
                                 )}
@@ -116,7 +120,7 @@ export function ListItemGroup<T extends SoftDeletable>({
                                                 );
                                             }
                                         })}
-                                        {row.deleted_at && (
+                                        {itemData.deleted_at && (
                                             <div className="flex gap-2 text-destructive">
                                                 <span className="font-medium">
                                                     {t('Deleted at')}:
@@ -124,7 +128,7 @@ export function ListItemGroup<T extends SoftDeletable>({
                                                 <span>
                                                     <LocalizedTimestamp
                                                         timestamp={
-                                                            row.deleted_at
+                                                            itemData.deleted_at
                                                         }
                                                     />
                                                 </span>
@@ -160,7 +164,8 @@ export function ListItemGroup<T extends SoftDeletable>({
                             </ItemActions>
                         )}
                     </Item>
-                ))}
+                );
+})}
             </ItemGroup>
         </InfiniteScroll>
     );
