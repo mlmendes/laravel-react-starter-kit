@@ -1,4 +1,5 @@
 import { Form } from '@inertiajs/react';
+import type { CheckedState } from '@radix-ui/react-checkbox';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
@@ -142,9 +143,7 @@ export default function RoleForm({ permissions, role }: Props) {
                     <FieldGroup>
                         <Field key={index} orientation="horizontal">
                             <Checkbox
-                                checked={childUuids.every((permission) =>
-                                    selectedPermissions.has(permission),
-                                )}
+                                checked={isGroupChecked(childUuids)}
                                 id={index}
                                 onCheckedChange={(checked) => {
                                     toggleGroup(node, checked === true);
@@ -162,6 +161,40 @@ export default function RoleForm({ permissions, role }: Props) {
             }
         });
     };
+
+    function areAllChecked(): CheckedState {
+        if (
+            permissions.every((permission) =>
+                selectedPermissions.has(permission.uuid),
+            )
+        ) {
+            return true;
+        }
+
+        if (selectedPermissions.size > 0) {
+            return 'indeterminate';
+        }
+
+        return false;
+    }
+
+    function isGroupChecked(childUuids: string[]): CheckedState {
+        if (
+            childUuids.every((permission) =>
+                selectedPermissions.has(permission),
+            )
+        ) {
+            return true;
+        }
+
+        if (
+            childUuids.some((permission) => selectedPermissions.has(permission))
+        ) {
+            return 'indeterminate';
+        }
+
+        return false;
+    }
 
     return (
         <Form
@@ -195,12 +228,7 @@ export default function RoleForm({ permissions, role }: Props) {
                             <FieldGroup>
                                 <Field orientation="horizontal">
                                     <Checkbox
-                                        checked={permissions.every(
-                                            (permission) =>
-                                                selectedPermissions.has(
-                                                    permission.uuid,
-                                                ),
-                                        )}
+                                        checked={areAllChecked()}
                                         id="select-all-permissions"
                                         onCheckedChange={(checked) => {
                                             if (checked === true) {
