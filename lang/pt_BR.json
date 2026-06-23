@@ -66,6 +66,7 @@
     "Failed to fetch a setup key": "Falha ao obter uma chave de configuração.",
     "Failed to fetch recovery codes": "Falha ao obter os códigos de recuperação",
     "Forbidden": "Proibido",
+    "Force delete": "Excluir permanentemente",
     "Forgot password": "Esqueceu sua senha",
     "Forgot your password?": "Esqueceu sua senha?",
     "Full name": "Nome completo",
@@ -175,6 +176,7 @@
     "Two-factor authentication enabled": "Autenticação de dois fatores ativada",
     "Two-factor authentication is now enabled. Scan the QR code or enter the setup key in your authenticator app.": "A autenticação de dois fatores agora está ativada. Escaneie o código QR ou insira a chave de configuração no seu aplicativo autenticador.",
     "Unauthorized": "Não autorizado",
+    "Update": "Editar",
     "Update password": "Atualizar senha",
     "Update the appearance settings for your account": "Atualize as configurações de aparência da sua conta",
     "Update your name and email address": "Atualize seu nome e endereço de e-mail",
@@ -196,9 +198,6 @@
     "You will be prompted for a secure, random pin during login, which you can retrieve from the TOTP-supported application on your phone.": "Durante o login, será solicitado um PIN seguro e aleatório, que você poderá obter no aplicativo compatível com TOTP instalado no seu celular.",
     "Your email address is unverified.": "Seu endereço de e-mail não foi verificado.",
     "above.": "acima.",
-    "create": "criar",
-    "delete": "excluir",
-    "force_delete": "excluir permanentemente",
     "log in": "entrar",
     "login using a recovery code": "entrar usando um código de recuperação",
     "login using an authentication code": "entrar usando um código de autenticação",
@@ -210,6 +209,5 @@
     "results": "resultados",
     "role": "função",
     "to": "a",
-    "update": "editar",
     "user": "usuário"
 }

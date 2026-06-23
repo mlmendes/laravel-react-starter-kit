@@ -10,3 +10,12 @@ export function cn(...inputs: ClassValue[]) {
 export function toUrl(url: NonNullable<InertiaLinkProps['href']>): string {
     return typeof url === 'string' ? url : url.url;
 }
+
+export function ucfirst(characters: string) {
+    return (
+        (characters &&
+            String(characters[0]).toUpperCase() +
+                String(characters).slice(1)) ||
+        ''
+    );
+}
