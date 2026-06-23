@@ -23,7 +23,7 @@ class RoleController extends Controller
      */
     public function index(): Response
     {
-        return Inertia::render(component: 'roles/index', props: [
+        return Inertia::render(component: 'users/roles/index', props: [
             'roles' => Inertia::scroll(fn () => $this->roleService->getAll()),
         ]);
     }
@@ -35,7 +35,7 @@ class RoleController extends Controller
     {
         Gate::authorize(ability: 'create', arguments: Role::class);
 
-        return Inertia::render(component: 'roles/create', props: [
+        return Inertia::render(component: 'users/roles/create', props: [
             'permissions' => $this->permissionService->getAll(),
         ]);
     }
@@ -49,7 +49,7 @@ class RoleController extends Controller
         $role = $this->roleService->save($request->validated());
         Inertia::flash('toast', ['type' => 'success', 'message' => __(':model :name created successfully', ['model' => __('Role'), 'name' => $role->name])]);
 
-        return to_route('roles.index');
+        return to_route('users.roles.index');
     }
 
     /**
@@ -59,7 +59,7 @@ class RoleController extends Controller
     {
         Gate::authorize(ability: 'update', arguments: $role);
 
-        return Inertia::render(component: 'roles/edit', props: [
+        return Inertia::render(component: 'users/roles/edit', props: [
             'permissions' => $this->permissionService->getAll(),
             'role' => $role,
         ]);
@@ -74,7 +74,7 @@ class RoleController extends Controller
         $role = $this->roleService->update($role, $request->validated());
         Inertia::flash('toast', ['type' => 'success', 'message' => __(':model :name edited successfully', ['model' => __('Role'), 'name' => $role->name])]);
 
-        return to_route('roles.index');
+        return to_route('users.roles.index');
     }
 
     /**
@@ -89,6 +89,6 @@ class RoleController extends Controller
             Inertia::flash('toast', ['type' => 'error', 'message' => __(':model :name could not be deleted', ['model' => __('Role'), 'name' => $role->name])]);
         }
 
-        return to_route('roles.index');
+        return to_route('users.roles.index');
     }
 }

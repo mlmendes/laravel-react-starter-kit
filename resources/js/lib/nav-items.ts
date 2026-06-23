@@ -1,7 +1,6 @@
 import { BookOpen, FolderGit2, ShieldUser, Users } from 'lucide-react';
 import { LayoutGrid } from 'lucide-react';
 import { dashboard } from '@/routes';
-import roles from '@/routes/roles';
 import users from '@/routes/users';
 import type { NavItem } from '@/types';
 
@@ -18,7 +17,7 @@ export const mainNavItems: NavItem[] = [
     },
     {
         title: 'Roles',
-        href: roles.index(),
+        href: users.roles.index(),
         icon: ShieldUser,
     },
 ];

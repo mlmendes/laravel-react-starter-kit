@@ -4,8 +4,8 @@ import { Translation } from 'react-i18next';
 import { LocalizedTimestamp } from '@/components/localized-timestamp';
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import UserAvatar from '@/components/user-avatar';
-import roles from '@/routes/roles';
 import users from '@/routes/users';
+import roles from '@/routes/users/roles';
 import type { ItemSchema, Role, User } from '@/types';
 
 export const role: ItemSchema<Role> = {

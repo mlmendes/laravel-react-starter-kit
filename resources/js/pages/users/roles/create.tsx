@@ -1,5 +1,6 @@
-import RoleForm from '@/pages/roles/form';
-import roles from '@/routes/roles';
+import RoleForm from '@/pages/users/roles/form';
+import users from '@/routes/users';
+import roles from '@/routes/users/roles';
 import type { Permission } from '@/types';
 
 type Props = {
@@ -13,6 +14,10 @@ export default function RoleCreate({ permissions }: Props) {
 RoleCreate.layout = () => ({
     action: roles.create(),
     breadcrumbs: [
+        {
+            title: 'Users',
+            href: users.index(),
+        },
         {
             title: 'Roles',
             href: roles.index(),

@@ -1,6 +1,7 @@
 import { InfiniteScroll } from '@inertiajs/react';
 import { ListItemGroup } from '@/components/list-item-group';
-import roles from '@/routes/roles';
+import users from '@/routes/users';
+import roles from '@/routes/users/roles';
 import { role } from '@/schemas';
 import type { CursorPaginatedResponse, Role } from '@/types';
 
@@ -19,6 +20,10 @@ export default function Index({
 Index.layout = () => ({
     action: roles.create(),
     breadcrumbs: [
+        {
+            title: 'Users',
+            href: users.index(),
+        },
         {
             title: 'Roles',
             href: roles.index(),

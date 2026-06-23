@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { ucfirst } from '@/lib/utils';
-import roles from '@/routes/roles';
+import roles from '@/routes/users/roles';
 import type { Permission, Role } from '@/types';
 
 interface PermissionTree {
