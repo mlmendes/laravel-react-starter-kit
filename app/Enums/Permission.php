@@ -4,10 +4,10 @@ namespace App\Enums;
 
 enum Permission: string
 {
-    case ROLES_CREATE = 'roles:create';
-    case ROLES_FORCE_DELETE = 'roles:force delete';
-    case ROLES_UPDATE = 'roles:update';
     case USERS_CREATE = 'users:create';
     case USERS_DELETE = 'users:delete';
     case USERS_UPDATE = 'users:update';
+    case USERS_ROLES_CREATE = 'users:roles:create';
+    case USERS_ROLES_FORCE_DELETE = 'users:roles:force delete';
+    case USERS_ROLES_UPDATE = 'users:roles:update';
 }
