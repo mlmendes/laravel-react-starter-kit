@@ -146,6 +146,7 @@
     "Save password": "Salvar senha",
     "Security": "Segurança",
     "Security settings": "Configurações de segurança",
+    "Select all": "Selecionar todos(as)",
     "Server Error": "Erro no servidor",
     "Service Unavailable": "Serviço indisponível",
     "Set initial password": "Definir senha inicial",
@@ -195,6 +196,9 @@
     "You will be prompted for a secure, random pin during login, which you can retrieve from the TOTP-supported application on your phone.": "Durante o login, será solicitado um PIN seguro e aleatório, que você poderá obter no aplicativo compatível com TOTP instalado no seu celular.",
     "Your email address is unverified.": "Seu endereço de e-mail não foi verificado.",
     "above.": "acima.",
+    "create": "criar",
+    "delete": "excluir",
+    "force_delete": "excluir permanentemente",
     "log in": "entrar",
     "login using a recovery code": "entrar usando um código de recuperação",
     "login using an authentication code": "entrar usando um código de autenticação",
@@ -206,5 +210,6 @@
     "results": "resultados",
     "role": "função",
     "to": "a",
+    "update": "editar",
     "user": "usuário"
 }
