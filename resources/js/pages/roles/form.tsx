@@ -26,6 +26,37 @@ type Props = {
     role?: Role | undefined;
 };
 
+function sortPermissionTree(node: PermissionTree): PermissionTree {
+    const sortedEntries = Object.entries(node).sort(
+        ([keyA, valA], [keyB, valB]) => {
+            const isLeafA = typeof valA === 'string';
+            const isLeafB = typeof valB === 'string';
+
+            if (isLeafA && !isLeafB) {
+                return -1;
+            }
+
+            if (!isLeafA && isLeafB) {
+                return 1;
+            }
+
+            return keyA.localeCompare(keyB);
+        },
+    );
+
+    const sortedObject: PermissionTree = {};
+
+    for (const [key, value] of sortedEntries) {
+        if (typeof value === 'string') {
+            sortedObject[key] = value;
+        } else {
+            sortedObject[key] = sortPermissionTree(value as PermissionTree);
+        }
+    }
+
+    return sortedObject;
+}
+
 function parsePermissions(permissions: Permission[]): PermissionTree {
     const root: PermissionTree = {};
 
@@ -49,7 +80,7 @@ function parsePermissions(permissions: Permission[]): PermissionTree {
         }
     }
 
-    return root;
+    return sortPermissionTree(root);
 }
 
 export default function RoleForm({ permissions, role }: Props) {
