@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -11,6 +12,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
     Route::resource(name: 'users', controller: UserController::class)->except(methods: 'show')->withTrashed();
     Route::post(uri: 'users/{user}/restore', action: [UserController::class, 'restore'])->name('users.restore')->withTrashed();
+    Route::resource(name: 'roles', controller: RoleController::class)->except(methods: 'show');
 });
 
 Route::middleware(WelcomesNewUsers::class)->group(function () {

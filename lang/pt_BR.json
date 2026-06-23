@@ -111,6 +111,7 @@
     "Password confirmation": "Confirmação de senha",
     "Password updated.": "Senha atualizada.",
     "Payment Required": "Pagamento necessário",
+    "Permissions": "Permissões",
     "Platform": "Plataforma",
     "Please click the button below to verify your email address.": "Por favor, clique no botão abaixo para verificar seu endereço de e-mail.",
     "Please confirm access to your account by entering one of your emergency recovery codes.": "Por favor, confirme o acesso à sua conta inserindo um dos seus códigos de recuperação de emergência.",
@@ -139,6 +140,8 @@
     "Reset password": "Redefinir senha",
     "Reset your password": "Redefina sua senha",
     "Restore": "Restaurar",
+    "Role": "Função",
+    "Roles": "Funções",
     "Save": "Salvar",
     "Save password": "Salvar senha",
     "Security": "Segurança",
@@ -160,6 +163,7 @@
     "The welcome link does not have a valid signature or is expired.": "O link de boas-vindas não possui uma assinatura válida ou expirou.",
     "The welcome link has already been used.": "O link de boas-vindas já foi utilizado.",
     "The welcome link has expired.": "O link de boas-vindas expirou.",
+    "This action is unauthorized.": "Essa ação não é autorizada.",
     "This is a secure area of the application. Please confirm your password before continuing.": "Esta é uma área segura do aplicativo. Confirme sua senha antes de continuar.",
     "This password reset link will expire in :count minutes.": "Este link para redefinição de senha expirará em :count minutos.",
     "This welcome link will expire :count.": "Este link de boas-vindas expirará :count.",
@@ -200,6 +204,7 @@
     "or, enter the code manually": "ou insira o código manualmente",
     "recovery codes": "códigos de recuperação",
     "results": "resultados",
+    "role": "função",
     "to": "a",
     "user": "usuário"
 }

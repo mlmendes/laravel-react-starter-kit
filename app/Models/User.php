@@ -15,6 +15,7 @@ use Illuminate\Support\Carbon;
 use Laravel\Fortify\Contracts\PasskeyUser;
 use Laravel\Fortify\PasskeyAuthenticatable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use Spatie\Permission\Traits\HasRoles;
 use Spatie\WelcomeNotification\ReceivesWelcomeNotification;
 
 /**
@@ -36,7 +37,7 @@ use Spatie\WelcomeNotification\ReceivesWelcomeNotification;
 class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, HasUuids, Notifiable, PasskeyAuthenticatable, ReceivesWelcomeNotification, SoftDeletes, TwoFactorAuthenticatable;
+    use HasFactory, HasRoles, HasUuids, Notifiable, PasskeyAuthenticatable, ReceivesWelcomeNotification, SoftDeletes, TwoFactorAuthenticatable;
 
     protected $primaryKey = 'uuid';
 
