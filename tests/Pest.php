@@ -1,8 +1,13 @@
 <?php
 
+use App\Models\Permission as PermissionModel;
+use App\Models\Role as RoleModel;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Random\RandomException;
 use Tests\TestCase;
 
+use function Pest\Laravel\assertModelExists;
 use function Pest\Laravel\from;
 
 /*
@@ -46,11 +51,6 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
-{
-    // ..
-}
-
 function savePassword(string $password): void
 {
     $queryString = parse_url(test()->welcomeNotification->showWelcomeFormUrl, PHP_URL_QUERY);
@@ -64,4 +64,31 @@ function savePassword(string $password): void
         'password_confirmation' => $password,
     ])
         ->assertRedirectToRoute('dashboard');
+}
+
+/**
+ * @return array<int, string>
+ *
+ * @throws RandomException
+ */
+function randomPermissionsIds(): array
+{
+    return PermissionModel::all()->random(random_int(1, PermissionModel::count()))->pluck('uuid')->toArray();
+}
+
+/**
+ * @param  array<int, string>  $permissionsIds
+ */
+function assertRoleExists(string $name, array $permissionsIds): void
+{
+    $role = RoleModel::query()->where([
+        'name' => $name,
+    ])->whereHas(relation: 'permissions', callback: function (Builder $query) use ($permissionsIds) {
+        $query->whereIn(column: 'uuid', values: $permissionsIds);
+    }, operator: '=', count: count($permissionsIds)
+    )->whereDoesntHave(relation: 'permissions', callback: function ($query) use ($permissionsIds) {
+        $query->whereNotIn(column: 'uuid', values: $permissionsIds);
+    })->sole();
+
+    assertModelExists($role);
 }

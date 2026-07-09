@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\Permission;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -10,6 +11,15 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class RoleFactory extends Factory
 {
+    public function configure(): static
+    {
+        return $this->afterCreating(function (Role $role) {
+            $randomPermissions = collect(Permission::cases())->random(random_int(1, count(Permission::cases())));
+
+            $role->syncPermissions($randomPermissions);
+        });
+    }
+
     /**
      * Define the model's default state.
      *
@@ -18,7 +28,7 @@ class RoleFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->word(),
         ];
     }
 }
