@@ -12,7 +12,7 @@ class RoleRepository
      */
     public function all(): CursorPaginator
     {
-        return RoleModel::query()->cursorPaginate();
+        return RoleModel::query()->orderBy(column: 'name')->cursorPaginate();
     }
 
     /**

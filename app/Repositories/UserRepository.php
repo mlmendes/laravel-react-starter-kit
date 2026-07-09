@@ -12,7 +12,7 @@ class UserRepository
      */
     public function all(): CursorPaginator
     {
-        return User::query()->withTrashed()->cursorPaginate();
+        return User::query()->withTrashed()->orderBy(column: 'name')->cursorPaginate();
     }
 
     /**
