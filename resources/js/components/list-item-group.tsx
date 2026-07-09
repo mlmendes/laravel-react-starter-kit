@@ -1,6 +1,7 @@
 import { InfiniteScroll } from '@inertiajs/react';
 import { Ellipsis } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import InfiniteScrollNext from '@/components/infinite-scroll-next';
 import { LocalizedTimestamp } from '@/components/localized-timestamp';
 import { Button } from '@/components/ui/button';
 import {
@@ -18,7 +19,6 @@ import {
     ItemMedia,
     ItemTitle,
 } from '@/components/ui/item';
-import { Spinner } from '@/components/ui/spinner';
 import { cn } from '@/lib/utils';
 import type { ItemSchema, SoftDeletable } from '@/types';
 
@@ -43,24 +43,7 @@ export function ListItemGroup<T>({
         <InfiniteScroll
             data={propKey}
             next={({ loading, hasMore }) => (
-                <Item className="w-fit justify-self-center" size="sm">
-                    {loading && (
-                        <ItemMedia>
-                            <Spinner />
-                        </ItemMedia>
-                    )}
-                    <ItemContent>
-                        <ItemTitle className="line-clamp-1">
-                            {t(
-                                loading
-                                    ? 'Loading'
-                                    : hasMore
-                                      ? 'Load more'
-                                      : 'End of data',
-                            )}
-                        </ItemTitle>
-                    </ItemContent>
-                </Item>
+                <InfiniteScrollNext loading={loading} hasMore={hasMore} />
             )}
             preserveUrl
         >
