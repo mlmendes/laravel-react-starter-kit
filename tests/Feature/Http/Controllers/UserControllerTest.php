@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Permission;
 use App\Models\User;
 
 beforeEach(function () {
@@ -7,12 +8,18 @@ beforeEach(function () {
 });
 
 test('can access users index', function () {
+    $this->authUser->givePermissionTo([
+        Permission::USERS_CREATE,
+        Permission::USERS_DELETE,
+        Permission::USERS_UPDATE,
+    ]);
     $this->actingAs($this->authUser)
         ->get(route('users.index'))
         ->assertOk();
 });
 
 test('can create user', function () {
+    $this->authUser->givePermissionTo(Permission::USERS_CREATE);
     $this->actingAs($this->authUser)
         ->get(route('users.create'))
         ->assertOk();
@@ -29,6 +36,7 @@ test('can create user', function () {
 });
 
 test('can edit user', function () {
+    $this->authUser->givePermissionTo(Permission::USERS_UPDATE);
     $newUser = User::factory()->create();
     $this->actingAs($this->authUser)
         ->get(route('users.edit', $newUser))
@@ -48,6 +56,7 @@ test('can edit user', function () {
 });
 
 test('can delete user', function () {
+    $this->authUser->givePermissionTo(Permission::USERS_DELETE);
     $newUser = User::factory()->create();
     $this->actingAs($this->authUser)
         ->fromRoute('users.index')
@@ -57,6 +66,7 @@ test('can delete user', function () {
 });
 
 test('can restore user', function () {
+    $this->authUser->givePermissionTo(Permission::USERS_DELETE);
     $softDeletedUser = User::factory()->softDeleted()->create();
     $this->actingAs($this->authUser)
         ->fromRoute('users.index')
