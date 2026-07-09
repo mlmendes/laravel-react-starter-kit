@@ -23,6 +23,8 @@ class RoleController extends Controller
      */
     public function index(): Response
     {
+        Gate::authorize(ability: 'view-any', arguments: Role::class);
+
         return Inertia::render(component: 'users/roles/index', props: [
             'roles' => Inertia::scroll(fn () => $this->roleService->getAll()),
         ]);
