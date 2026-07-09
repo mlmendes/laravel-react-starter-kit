@@ -1,3 +1,5 @@
+import type { User } from '@/types/auth';
+
 export type * from './auth';
 export type * from './navigation';
 export type * from './ui';
@@ -17,4 +19,5 @@ export type Role = {
     created_at: string;
     updated_at: string;
     permissions: Permission[];
+    users?: User[];
 };

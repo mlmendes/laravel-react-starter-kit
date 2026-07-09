@@ -33,6 +33,7 @@ class RoleRequest extends FormRequest
                     : Rule::unique(table: 'roles', column: 'name')->ignore(id: $this->role->uuid, idColumn: 'uuid'),
             ],
             'permissions' => ['array', 'exists:permissions,uuid'],
+            'users' => ['array', 'exists:users,uuid'],
         ];
     }
 }

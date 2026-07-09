@@ -1,14 +1,15 @@
 import RoleForm from '@/pages/users/roles/form';
 import users from '@/routes/users';
 import roles from '@/routes/users/roles';
-import type { Permission } from '@/types';
+import type { CursorPaginatedResponse, Permission, User } from '@/types';
 
 type Props = {
     permissions: Permission[];
+    users: CursorPaginatedResponse<User>;
 };
 
-export default function RoleCreate({ permissions }: Props) {
-    return <RoleForm permissions={permissions} />;
+export default function RoleCreate({ permissions, users }: Props) {
+    return <RoleForm permissions={permissions} users={users} />;
 }
 
 RoleCreate.layout = () => ({

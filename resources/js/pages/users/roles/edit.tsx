@@ -1,15 +1,16 @@
 import RoleForm from '@/pages/users/roles/form';
 import users from '@/routes/users';
 import roles from '@/routes/users/roles';
-import type { Permission, Role } from '@/types';
+import type { CursorPaginatedResponse, Permission, Role, User } from '@/types';
 
 type Props = {
     permissions: Permission[];
     role: Role;
+    users: CursorPaginatedResponse<User>;
 };
 
-export default function RoleEdit({ permissions, role }: Props) {
-    return <RoleForm permissions={permissions} role={role} />;
+export default function RoleEdit({ permissions, role, users }: Props) {
+    return <RoleForm permissions={permissions} role={role} users={users} />;
 }
 
 RoleEdit.layout = (props: { role: Role }) => ({

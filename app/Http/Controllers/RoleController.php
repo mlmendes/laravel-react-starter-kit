@@ -6,6 +6,7 @@ use App\Http\Requests\RoleRequest;
 use App\Models\Role;
 use App\Services\PermissionService;
 use App\Services\RoleService;
+use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
@@ -15,7 +16,8 @@ class RoleController extends Controller
 {
     public function __construct(
         private readonly PermissionService $permissionService,
-        private readonly RoleService $roleService
+        private readonly RoleService $roleService,
+        private readonly UserService $userService
     ) {}
 
     /**
@@ -39,6 +41,7 @@ class RoleController extends Controller
 
         return Inertia::render(component: 'users/roles/create', props: [
             'permissions' => $this->permissionService->getAll(),
+            'users' => Inertia::scroll(fn () => $this->userService->getAll()),
         ]);
     }
 
@@ -63,7 +66,8 @@ class RoleController extends Controller
 
         return Inertia::render(component: 'users/roles/edit', props: [
             'permissions' => $this->permissionService->getAll(),
-            'role' => $role,
+            'role' => $role->load(relations: 'users'),
+            'users' => Inertia::scroll(fn () => $this->userService->getAll()),
         ]);
     }
 

@@ -1,11 +1,14 @@
-import { Form } from '@inertiajs/react';
+import { Form, InfiniteScroll } from '@inertiajs/react';
 import type { CheckedState } from '@radix-ui/react-checkbox';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import InfiniteScrollNext from '@/components/infinite-scroll-next';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
     Field,
+    FieldContent,
+    FieldDescription,
     FieldError,
     FieldGroup,
     FieldLabel,
@@ -15,7 +18,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { ucfirst } from '@/lib/utils';
 import roles from '@/routes/users/roles';
-import type { Permission, Role } from '@/types';
+import type { CursorPaginatedResponse, Permission, Role, User } from '@/types';
 
 interface PermissionTree {
     [key: string]: PermissionTree | string;
@@ -24,6 +27,7 @@ interface PermissionTree {
 type Props = {
     permissions: Permission[];
     role?: Role | undefined;
+    users: CursorPaginatedResponse<User>;
 };
 
 function sortPermissionTree(node: PermissionTree): PermissionTree {
@@ -83,7 +87,7 @@ function parsePermissions(permissions: Permission[]): PermissionTree {
     return sortPermissionTree(root);
 }
 
-export default function RoleForm({ permissions, role }: Props) {
+export default function RoleForm({ permissions, role, users }: Props) {
     const { t } = useTranslation();
     const formRoute = role ? roles.update(role.uuid) : roles.store();
     const [selectedPermissions, setSelectedPermissions] = useState<Set<string>>(
@@ -159,10 +163,7 @@ export default function RoleForm({ permissions, role }: Props) {
                             }
                             value={uuid}
                         />
-                        <FieldLabel
-                            htmlFor={`permissions[${uuid}]`}
-                            defaultChecked
-                        >
+                        <FieldLabel htmlFor={`permissions[${uuid}]`}>
                             {t(ucfirst(index))}
                         </FieldLabel>
                     </Field>
@@ -171,8 +172,8 @@ export default function RoleForm({ permissions, role }: Props) {
                 const childUuids = getAllChildUuids(node);
 
                 return (
-                    <FieldGroup>
-                        <Field key={index} orientation="horizontal">
+                    <FieldGroup key={index}>
+                        <Field orientation="horizontal">
                             <Checkbox
                                 checked={isGroupChecked(childUuids)}
                                 id={index}
@@ -288,6 +289,48 @@ export default function RoleForm({ permissions, role }: Props) {
                             </FieldGroup>
                             <FieldError>{errors.permissions}</FieldError>
                         </FieldSet>
+                        <InfiniteScroll
+                            data="users"
+                            next={({ loading, hasMore }) => (
+                                <InfiniteScrollNext
+                                    loading={loading}
+                                    hasMore={hasMore}
+                                />
+                            )}
+                        >
+                            <FieldSet>
+                                <FieldLegend>{t('Users')}</FieldLegend>
+                                <FieldGroup className="gap-4">
+                                    {users.data.map((user) => (
+                                        <Field
+                                            key={user.uuid}
+                                            orientation="horizontal"
+                                        >
+                                            <Checkbox
+                                                defaultChecked={role?.users?.some(
+                                                    (roleUser) =>
+                                                        roleUser.uuid ===
+                                                        user.uuid,
+                                                )}
+                                                id={`users[${user.uuid}]`}
+                                                name="users[]"
+                                                value={user.uuid}
+                                            />
+                                            <FieldContent className="gap-0">
+                                                <FieldLabel
+                                                    htmlFor={`users[${user.uuid}]`}
+                                                >
+                                                    {user.name}
+                                                </FieldLabel>
+                                                <FieldDescription>
+                                                    {user.email}
+                                                </FieldDescription>
+                                            </FieldContent>
+                                        </Field>
+                                    ))}
+                                </FieldGroup>
+                            </FieldSet>
+                        </InfiniteScroll>
                         <Field orientation="horizontal">
                             <Button type="submit">{t('Save')}</Button>
                             <Button

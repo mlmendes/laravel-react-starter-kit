@@ -24,8 +24,11 @@ class RoleRepository
         if (array_key_exists('permissions', $data)) {
             $role->syncPermissions($data['permissions']);
         }
+        if (array_key_exists('users', $data)) {
+            $role->users()->sync($data['users']);
+        }
 
-        return $role;
+        return $role->fresh();
     }
 
     /**
@@ -36,6 +39,9 @@ class RoleRepository
         $role->update($data);
         if (array_key_exists('permissions', $data)) {
             $role->syncPermissions($data['permissions']);
+        }
+        if (array_key_exists('users', $data)) {
+            $role->users()->sync($data['users']);
         }
 
         return $role->fresh();
