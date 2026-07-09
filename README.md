@@ -16,6 +16,16 @@ This kit inherits the robust foundation of Laravel and pushes it further:
 
 I've modified the base kit to solve common development pain points and improve security:
 
+### Security and architecture
+- **UUIDs for Users:** The default integer `id` column in the users table has been replaced with `uuid` to prevent user-count inference attacks.
+- **Email verification forced by default**
+- **Advanced RBAC:** User CRUD with strict Role-Based Access Control powered by `spatie/laravel-permission`.
+- **User Invitations:** Seamless user onboarding via email invitations using `spatie/laravel-welcome-notification`.
+
+### UI/UX
+- **Pruned repeated code:** Navigation links unified into a single `lib` file, shared seamlessly across both Sidebar and Header layouts.
+- **Rich colors:** `shadcn sonner` defined with `richColors` by default for better user feedback visibility.
+
 ### Internationalization (i18n)
 - **`react-i18next` integration:** Pre-configured with browser language auto-detection and a built-in UI component to switch languages on the go.
   - By the way, it is loaded before the React app, so the users won't see the texts changing before their eyes
@@ -24,14 +34,6 @@ I've modified the base kit to solve common development pain points and improve s
 - **pt-BR included:** The entire starter kit is fully translated into Brazilian Portuguese, serving as a perfect base if you'd like to contribute here by adding more languages, or use on your own project.
   - The original kit doesn't apply user-friendly attribute names on the default profile requests, so I also fixed it... and translated, of course.
   - This translation also includes the default email notifications for **email verification** and **password reset**.
-
-### Security and architecture
-- **UUIDs for Users:** The default integer `id` column in the users table has been replaced with `uuid`. This prevents IDOR (Insecure Direct Object Reference) and user-count inference attacks.
-- **Email verification forced by default:** Email verification is strictly required from the start.
-
-### UI/UX
-- **Pruned repeated code:** Navigation links unified into a single `lib` file, shared seamlessly across both Sidebar and Header layouts.
-- **Rich colors:** `shadcn sonner` defined with `richColors` by default for better user feedback visibility.
 
 ## Installation
 Require the package via Composer:
@@ -52,8 +54,6 @@ If you don't have the official Laravel installer, [take a look at the docs](http
 There are more improvements coming next:
 
 - **Multi-level tenancy:** Architecture to support a single application serving multiple clients, where clients can also manage their own sub-clients.
-- **Advanced RBAC:** User CRUD with strict Role-Based Access Control powered by `spatie/laravel-permission`.
-- **User Invitations:** Seamless user onboarding via email invitations using `spatie/laravel-welcome-notification`.
 - **Profile Picture Upload:** Built-in avatar management for users.
 - **Teams Integration:** Implementing the missing Teams feature from the original starter kit.
 - **WorkOS Branch:** A dedicated branch/option for WorkOS authentication.
