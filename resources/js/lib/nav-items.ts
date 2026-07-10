@@ -25,7 +25,7 @@ export const mainNavItems: NavItem[] = [
 export const secondaryNavItems: NavItem[] = [
     {
         title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
+        href: 'https://github.com/mlmendes/laravel-react-starter-kit',
         icon: FolderGit2,
     },
     {
