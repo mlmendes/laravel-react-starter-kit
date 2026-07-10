@@ -24,6 +24,7 @@ test('can create role', function () {
 
     $name = fake()->word();
     $permissions = randomPermissionsIds();
+    $usersIds = collect(User::factory(10)->create())->random(3)->pluck('uuid')->toArray();
 
     $this->actingAs($this->authUser)
         ->get(route('users.roles.create'))
@@ -34,6 +35,7 @@ test('can create role', function () {
         ->post(route('users.roles.store'), [
             'name' => $name,
             'permissions' => $permissions,
+            'users' => $usersIds,
         ])->assertRedirectToRoute('users.roles.index');
 
     assertRoleExists(name: $name, permissionsIds: $permissions);
@@ -43,6 +45,7 @@ test('can edit role', function () {
     $this->authUser->givePermissionTo(Permission::USERS_ROLES_UPDATE);
 
     $role = Role::factory()->create();
+    $usersIds = collect(User::factory(10)->create())->random(3)->pluck('uuid')->toArray();
 
     $this->actingAs($this->authUser)
         ->get(route('users.roles.edit', $role))
@@ -56,6 +59,7 @@ test('can edit role', function () {
         ->patch(route('users.roles.update', $role), [
             'name' => $newName,
             'permissions' => $newPermissions,
+            'users' => $usersIds,
         ])->assertRedirectToRoute('users.roles.index');
 
     assertRoleExists(name: $newName, permissionsIds: $newPermissions);

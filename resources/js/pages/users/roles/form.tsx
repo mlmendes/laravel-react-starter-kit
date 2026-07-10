@@ -231,7 +231,7 @@ export default function RoleForm({ permissions, role, users }: Props) {
     return (
         <Form
             action={formRoute.url}
-            className="m-8 max-w-xs"
+            className="m-8 h-48"
             disableWhileProcessing
             method={formRoute.method}
             transform={(data) => ({
@@ -241,8 +241,24 @@ export default function RoleForm({ permissions, role, users }: Props) {
         >
             {({ errors, resetAndClearErrors }) => (
                 <FieldSet>
-                    <FieldGroup>
-                        <Field data-invalid={!!errors.name}>
+                    <FieldGroup className="grid grid-cols-1 lg:grid-cols-2">
+                        <Field
+                            className="lg:col-span-2"
+                            orientation="horizontal"
+                        >
+                            <Button type="submit">{t('Save')}</Button>
+                            <Button
+                                onClick={() => resetAndClearErrors()}
+                                type="reset"
+                                variant="outline"
+                            >
+                                {t('Cancel')}
+                            </Button>
+                        </Field>
+                        <Field
+                            className="lg:col-span-2"
+                            data-invalid={!!errors.name}
+                        >
                             <FieldLabel htmlFor="name">{t('Name')}</FieldLabel>
                             <Input
                                 aria-invalid={!!errors.name}
@@ -289,18 +305,21 @@ export default function RoleForm({ permissions, role, users }: Props) {
                             </FieldGroup>
                             <FieldError>{errors.permissions}</FieldError>
                         </FieldSet>
-                        <InfiniteScroll
-                            data="users"
-                            next={({ loading, hasMore }) => (
-                                <InfiniteScrollNext
-                                    loading={loading}
-                                    hasMore={hasMore}
-                                />
-                            )}
-                        >
-                            <FieldSet>
-                                <FieldLegend>{t('Users')}</FieldLegend>
-                                <FieldGroup className="gap-4">
+
+                        <FieldSet>
+                            <FieldLegend>{t('Users')}</FieldLegend>
+                            <FieldGroup className="gap-0">
+                                <InfiniteScroll
+                                    className="space-y-2"
+                                    data="users"
+                                    next={({ loading, hasMore }) => (
+                                        <InfiniteScrollNext
+                                            loading={loading}
+                                            hasMore={hasMore}
+                                        />
+                                    )}
+                                    preserveUrl
+                                >
                                     {users.data.map((user) => (
                                         <Field
                                             key={user.uuid}
@@ -328,19 +347,9 @@ export default function RoleForm({ permissions, role, users }: Props) {
                                             </FieldContent>
                                         </Field>
                                     ))}
-                                </FieldGroup>
-                            </FieldSet>
-                        </InfiniteScroll>
-                        <Field orientation="horizontal">
-                            <Button type="submit">{t('Save')}</Button>
-                            <Button
-                                onClick={() => resetAndClearErrors()}
-                                type="reset"
-                                variant="outline"
-                            >
-                                {t('Cancel')}
-                            </Button>
-                        </Field>
+                                </InfiniteScroll>
+                            </FieldGroup>
+                        </FieldSet>
                     </FieldGroup>
                 </FieldSet>
             )}
