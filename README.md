@@ -1,5 +1,8 @@
 # Laravel React Starter Kit
 
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/mlmendes/laravel-react-starter-kit/tests.yml?label=tests)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/mlmendes/laravel-react-starter-kit/lint.yml?label=lint)
+![GitHub Release](https://img.shields.io/github/v/release/mlmendes/laravel-react-starter-kit)
 [![Total Downloads](https://img.shields.io/packagist/dt/mlmendes/laravel-react-starter-kit.svg)](https://packagist.org/packages/mlmendes/laravel-react-starter-kit)
 
 I was tired of configuring the same boilerplate every time I started a new Laravel project, so I've built my own opinionated React starter kit over the original one. This kit introduces features for i18n, better security features and reduced repeated code.
