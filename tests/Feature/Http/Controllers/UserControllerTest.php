@@ -1,7 +1,10 @@
 <?php
 
 use App\Enums\Permission;
+use App\Models\Role;
 use App\Models\User;
+
+use function PHPUnit\Framework\assertTrue;
 
 beforeEach(function () {
     $this->authUser = User::factory()->create();
@@ -20,6 +23,9 @@ test('can access users index', function () {
 
 test('can create user', function () {
     $this->authUser->givePermissionTo(Permission::USERS_CREATE);
+    $roles = collect(Role::factory(10)->create())->random(3);
+    $rolesIds = $roles->pluck('uuid')->toArray();
+
     $this->actingAs($this->authUser)
         ->get(route('users.create'))
         ->assertOk();
@@ -28,16 +34,24 @@ test('can create user', function () {
         ->post(route('users.store'), [
             'name' => 'New User',
             'email' => 'newuser@example.com',
+            'roles' => $rolesIds,
         ])->assertRedirect(route('users.index'));
-    $this->assertModelExists(User::query()->where([
+
+    $user = User::query()->where([
         'name' => 'New User',
         'email' => 'newuser@example.com',
-    ])->sole());
+    ])->sole();
+
+    $this->assertModelExists($user);
+    assertTrue($user->hasExactRoles($roles));
 });
 
 test('can edit user', function () {
     $this->authUser->givePermissionTo(Permission::USERS_UPDATE);
     $newUser = User::factory()->create();
+    $roles = collect(Role::factory(10)->create())->random(3);
+    $rolesIds = $roles->pluck('uuid')->toArray();
+
     $this->actingAs($this->authUser)
         ->get(route('users.edit', $newUser))
         ->assertOk();
@@ -46,13 +60,17 @@ test('can edit user', function () {
         ->patch(route('users.update', $newUser), [
             'name' => 'Edited User',
             'email' => 'editeduser@example.com',
+            'roles' => $rolesIds,
         ])->assertRedirect(route('users.index'));
+
     $this->assertModelExists(
         User::query()->where([
             'name' => 'Edited User',
             'email' => 'editeduser@example.com',
         ])->sole()
     );
+
+    assertTrue($newUser->hasExactRoles($roles));
 });
 
 test('can delete user', function () {

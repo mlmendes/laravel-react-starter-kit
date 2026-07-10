@@ -20,7 +20,12 @@ class UserRepository
      */
     public function save(array $data): User
     {
-        return User::query()->create($data);
+        $user = User::query()->create($data);
+        if (array_key_exists('roles', $data)) {
+            $user->roles()->sync($data['roles']);
+        }
+
+        return $user;
     }
 
     /**
@@ -31,6 +36,9 @@ class UserRepository
         $user->fill($data);
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
+        }
+        if (array_key_exists('roles', $data)) {
+            $user->roles()->sync($data['roles']);
         }
         $user->save();
 

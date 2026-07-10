@@ -1,3 +1,4 @@
+import type { Role } from '@/types/index';
 import type { SoftDeletable } from '@/types/navigation';
 
 export type User = SoftDeletable & {
@@ -9,6 +10,7 @@ export type User = SoftDeletable & {
     two_factor_enabled?: boolean;
     created_at: string;
     updated_at: string;
+    roles?: Role[];
     [key: string]: unknown;
 };
 

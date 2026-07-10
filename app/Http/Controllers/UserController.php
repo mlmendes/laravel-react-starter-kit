@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\User\StoreUserRequest;
-use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
+use App\Services\RoleService;
 use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
@@ -13,7 +13,10 @@ use Inertia\Response;
 
 class UserController extends Controller
 {
-    public function __construct(private readonly UserService $userService) {}
+    public function __construct(
+        private readonly RoleService $roleService,
+        private readonly UserService $userService
+    ) {}
 
     public function index(): Response
     {
@@ -28,10 +31,12 @@ class UserController extends Controller
     {
         Gate::authorize(ability: 'create', arguments: User::class);
 
-        return Inertia::render(component: 'users/create');
+        return Inertia::render(component: 'users/create', props: [
+            'roles' => Inertia::scroll(fn () => $this->roleService->getAll()),
+        ]);
     }
 
-    public function store(StoreUserRequest $request): RedirectResponse
+    public function store(UserRequest $request): RedirectResponse
     {
         Gate::authorize(ability: 'create', arguments: User::class);
 
@@ -45,10 +50,13 @@ class UserController extends Controller
     {
         Gate::authorize(ability: 'update', arguments: $user);
 
-        return Inertia::render(component: 'users/edit', props: ['user' => $user]);
+        return Inertia::render(component: 'users/edit', props: [
+            'user' => $user->load(relations: 'roles'),
+            'roles' => Inertia::scroll(fn () => $this->roleService->getAll()),
+        ]);
     }
 
-    public function update(UpdateUserRequest $request, User $user): RedirectResponse
+    public function update(UserRequest $request, User $user): RedirectResponse
     {
         Gate::authorize(ability: 'update', arguments: $user);
 
