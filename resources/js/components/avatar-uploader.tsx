@@ -1,15 +1,21 @@
-import AvatarEditor, { useAvatarEditor } from 'react-avatar-editor';
-import { useMotionValue, useSpring, useMotionValueEvent } from 'motion/react';
-import Dropzone from 'react-dropzone';
-import { useState } from 'react';
-import { Slider } from '@/components/ui/slider';
-import { Button } from '@/components/ui/button';
 import { RotateCcw, RotateCw, Trash } from 'lucide-react';
+import { useMotionValue, useSpring, useMotionValueEvent } from 'motion/react';
+import { Dispatch, SetStateAction, useState } from 'react';
+import AvatarEditor from 'react-avatar-editor';
+import Dropzone from 'react-dropzone';
+import { Button } from '@/components/ui/button';
+import { Slider } from '@/components/ui/slider';
 import { ButtonGroup } from './ui/button-group';
 
-export default function AvatarUploader() {
-    const [image, setImage] = useState<File | undefined>();
-    const editor = useAvatarEditor();
+export default function AvatarUploader({
+    editor,
+    image,
+    setImage,
+}: {
+    editor: any;
+    image: File | undefined;
+    setImage: Dispatch<SetStateAction<File | undefined>>;
+}) {
     const [rotate, setRotate] = useState(0);
     const [animatedRotate, setAnimatedRotate] = useState(0);
     const [scale, setScale] = useState<number[]>([1.0]);
@@ -28,6 +34,14 @@ export default function AvatarUploader() {
     return (
         <>
             <Dropzone
+                multiple={false}
+                accept={{
+                    'image/jpeg': [],
+                    'image/png': [],
+                    'image/bmp': [],
+                    'image/gif': [],
+                    'image/webp': [],
+                }}
                 onDrop={([file]) => setImage(file)}
                 noClick={image !== undefined}
                 noKeyboard
@@ -49,6 +63,7 @@ export default function AvatarUploader() {
                             width={250}
                         />
                         <Slider
+                            disabled={!image}
                             max={10}
                             min={1.0}
                             onValueChange={(value) => setScale(value)}
@@ -57,6 +72,7 @@ export default function AvatarUploader() {
                         />
                         <ButtonGroup>
                             <Button
+                                disabled={!image}
                                 onClick={() => setRotate((r) => r - 90)}
                                 size="icon"
                                 type="button"
@@ -65,6 +81,7 @@ export default function AvatarUploader() {
                                 <RotateCcw />
                             </Button>
                             <Button
+                                disabled={!image}
                                 onClick={() => setRotate((r) => r + 90)}
                                 size="icon"
                                 type="button"
@@ -73,6 +90,7 @@ export default function AvatarUploader() {
                                 <RotateCw />
                             </Button>
                             <Button
+                                disabled={!image}
                                 onClick={() => {
                                     setImage(undefined);
                                     setScale([1.0]);
@@ -85,7 +103,7 @@ export default function AvatarUploader() {
                                 <Trash />
                             </Button>
                         </ButtonGroup>
-                        <input {...getInputProps()} />
+                        <input {...getInputProps()} id="avatar" name="avatar" />
                     </div>
                 )}
             </Dropzone>

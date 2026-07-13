@@ -11,7 +11,6 @@ import { Label } from '@/components/ui/label';
 import { edit } from '@/routes/profile';
 import { send } from '@/routes/verification';
 import type { Auth } from '@/types';
-import AvatarUploader from '@/components/avatar-uploader';
 
 type PageProps = {
     auth: Auth;
@@ -49,9 +48,6 @@ export default function Profile({
                 >
                     {({ processing, errors }) => (
                         <>
-                            <div className="grid gap-2">
-                                <AvatarUploader />
-                            </div>
                             <div className="grid gap-2">
                                 <Label htmlFor="name">{t('Name')}</Label>
 
