@@ -1,6 +1,7 @@
 import { RotateCcw, RotateCw, Trash } from 'lucide-react';
 import { useMotionValue, useSpring, useMotionValueEvent } from 'motion/react';
-import { Dispatch, SetStateAction, useState } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
+import { useState } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import Dropzone from 'react-dropzone';
 import { Button } from '@/components/ui/button';
@@ -13,8 +14,8 @@ export default function AvatarUploader({
     setImage,
 }: {
     editor: any;
-    image: File | undefined;
-    setImage: Dispatch<SetStateAction<File | undefined>>;
+    image: File | string | undefined;
+    setImage: Dispatch<SetStateAction<File | string | undefined>>;
 }) {
     const [rotate, setRotate] = useState(0);
     const [animatedRotate, setAnimatedRotate] = useState(0);

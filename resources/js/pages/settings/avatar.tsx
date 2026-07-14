@@ -1,23 +1,41 @@
-import { Form, Head } from '@inertiajs/react';
-import { useTranslation } from 'react-i18next';
-import Heading from '@/components/heading';
-import avatar from '@/routes/avatar';
-import AvatarUploader from '@/components/avatar-uploader';
-import { Button } from '@/components/ui/button';
-import { FieldError, FieldSet } from '@/components/ui/field';
+import { Form, Head, usePage } from '@inertiajs/react';
 import { useRef, useState } from 'react';
 import { useAvatarEditor } from 'react-avatar-editor';
+import { useTranslation } from 'react-i18next';
+import AvatarUploader from '@/components/avatar-uploader';
+import Heading from '@/components/heading';
+import { Button } from '@/components/ui/button';
+import { FieldError, FieldSet } from '@/components/ui/field';
+import avatar from '@/routes/avatar';
+import type { Auth } from '@/types';
+
+type PageProps = {
+    auth: Auth;
+};
 
 export default function Profile() {
     const { t } = useTranslation();
-    const [image, setImage] = useState<File | undefined>();
+    const { auth } = usePage<PageProps>().props;
+    const [image, setImage] = useState<File | string | undefined>(
+        auth.user.avatar ?? undefined,
+    );
     const editor = useAvatarEditor();
     const formRef = useRef<any>(null);
     const avatarFileRef = useRef<File | null>(null);
 
     function handleSubmit() {
+        if (!image) {
+            avatarFileRef.current = null;
+            formRef.current?.submit();
+
+            return;
+        }
+
         const canvas = editor.ref.current?.getImageScaledToCanvas();
-        if (!canvas) return;
+
+        if (!canvas) {
+            return;
+        }
 
         canvas.toBlob((blob) => {
             if (blob) {

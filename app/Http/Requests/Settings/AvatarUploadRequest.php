@@ -33,7 +33,7 @@ class AvatarUploadRequest extends FormRequest
                 Rule::dimensions()
                     ->height(250)
                     ->width(250)
-                    ->ratio(1)
+                    ->ratio(1),
             ],
         ];
     }

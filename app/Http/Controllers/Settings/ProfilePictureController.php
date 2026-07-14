@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Settings;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\AvatarUploadRequest;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -17,14 +18,32 @@ class ProfilePictureController extends Controller
 
     public function upload(AvatarUploadRequest $request): RedirectResponse
     {
-        // TODO store uploaded avatar
+        if (is_null($request->file('avatar'))) {
+            $request->user()->destroyAvatar();
+            Inertia::flash('toast', ['type' => 'success', 'message' => __('Profile picture deleted successfully')]);
+
+            return to_route('avatar.view');
+        }
+
+        $path = $request->file('avatar')->storePublicly('avatars', 'public');
+
+        if ((bool) $path) {
+            $request->user()->update(['avatar' => $path]);
+            Inertia::flash('toast', ['type' => 'success', 'message' => __('Profile picture saved successfully')]);
+        } else {
+            Inertia::flash('toast', ['type' => 'error', 'message' => __('Error saving profile picture')]);
+        }
 
         return to_route('avatar.view');
     }
 
-    public function destroy(): RedirectResponse
+    public function destroy(Request $request): RedirectResponse
     {
-        // TODO remove profile picture
+        if ($request->user()->destroyAvatar()) {
+            Inertia::flash('toast', ['type' => 'success', 'message' => __('Profile picture deleted successfully')]);
+        } else {
+            Inertia::flash('toast', ['type' => 'error', 'message' => __('Error deleting profile picture')]);
+        }
 
         return to_route('avatar.view');
     }
