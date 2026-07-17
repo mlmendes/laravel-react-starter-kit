@@ -5,6 +5,7 @@ use App\Models\Role;
 use App\Models\User;
 
 beforeEach(function () {
+    $this->seed();
     $this->authUser = User::factory()->create();
 });
 
