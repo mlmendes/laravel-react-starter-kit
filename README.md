@@ -5,58 +5,43 @@
 ![GitHub Release](https://img.shields.io/github/v/release/mlmendes/laravel-react-starter-kit?logo=semantic-release)
 ![Packagist Downloads](https://img.shields.io/packagist/dt/mlmendes/laravel-react-starter-kit?logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgd2lkdGg9IjIwIgogICBoZWlnaHQ9IjIwIgogICB2aWV3Qm94PSIwIDAgMjAgMjAiCiAgIGZpbGw9Im5vbmUiCiAgIHN0cm9rZT0iY3VycmVudENvbG9yIgogICBzdHJva2Utd2lkdGg9IjIiCiAgIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIKICAgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIKICAgY2xhc3M9Imx1Y2lkZSBsdWNpZGUtZG93bmxvYWQtaWNvbiBsdWNpZGUtZG93bmxvYWQiCiAgIHZlcnNpb249IjEuMSIKICAgaWQ9InN2ZzMiCiAgIHNvZGlwb2RpOmRvY25hbWU9ImRvd25sb2FkLnN2ZyIKICAgaW5rc2NhcGU6dmVyc2lvbj0iMS40LjIgKGY0MzI3ZjQsIDIwMjUtMDUtMTMpIgogICB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIKICAgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIgogICB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzCiAgICAgaWQ9ImRlZnMzIiAvPgogIDxzb2RpcG9kaTpuYW1lZHZpZXcKICAgICBpZD0ibmFtZWR2aWV3MyIKICAgICBwYWdlY29sb3I9IiNmZmZmZmYiCiAgICAgYm9yZGVyY29sb3I9IiMwMDAwMDAiCiAgICAgYm9yZGVyb3BhY2l0eT0iMC4yNSIKICAgICBpbmtzY2FwZTpzaG93cGFnZXNoYWRvdz0iMiIKICAgICBpbmtzY2FwZTpwYWdlb3BhY2l0eT0iMC4wIgogICAgIGlua3NjYXBlOnBhZ2VjaGVja2VyYm9hcmQ9IjAiCiAgICAgaW5rc2NhcGU6ZGVza2NvbG9yPSIjZDFkMWQxIgogICAgIGlua3NjYXBlOnpvb209IjEwLjc3MDgzMyIKICAgICBpbmtzY2FwZTpjeD0iOC4yNjMwNTYxIgogICAgIGlua3NjYXBlOmN5PSI5Ljc5NDk3MSIKICAgICBpbmtzY2FwZTp3aW5kb3ctd2lkdGg9IjEzNjYiCiAgICAgaW5rc2NhcGU6d2luZG93LWhlaWdodD0iNjk3IgogICAgIGlua3NjYXBlOndpbmRvdy14PSItOCIKICAgICBpbmtzY2FwZTp3aW5kb3cteT0iNTA5IgogICAgIGlua3NjYXBlOndpbmRvdy1tYXhpbWl6ZWQ9IjEiCiAgICAgaW5rc2NhcGU6Y3VycmVudC1sYXllcj0ic3ZnMyIgLz4KICA8cGF0aAogICAgIGQ9Ik0gMTAsMTMgViAxIgogICAgIGlkPSJwYXRoMSIKICAgICBzdHlsZT0ic3Ryb2tlOiNmZmZmZmY7c3Ryb2tlLW9wYWNpdHk6MSIgLz4KICA8cGF0aAogICAgIGQ9Im0gMTksMTMgdiA0IGEgMiwyIDAgMCAxIC0yLDIgSCAzIEEgMiwyIDAgMCAxIDEsMTcgdiAtNCIKICAgICBpZD0icGF0aDIiCiAgICAgc3R5bGU9InN0cm9rZTojZmZmZmZmO3N0cm9rZS1vcGFjaXR5OjEiIC8+CiAgPHBhdGgKICAgICBkPSJtIDUsOCA1LDUgNSwtNSIKICAgICBpZD0icGF0aDMiCiAgICAgc3R5bGU9InN0cm9rZTojZmZmZmZmO3N0cm9rZS1vcGFjaXR5OjEiIC8+Cjwvc3ZnPgo=)
 
-I was tired of configuring the same boilerplate every time I started a new Laravel project, so I've built my own opinionated React starter kit over the original one. This kit introduces features for i18n, better security features and reduced repeated code.
+I was tired of configuring the same boilerplate every time I started a new Laravel project, so I've built my own opinionated React starter kit over the original one.
 
-## Core Features
+## Original features
 
-This kit inherits the robust foundation of Laravel and pushes it further:
+- **Built-in Laravel authentication** with all Fortify features enabled by default, including passkeys
+- **SPA experience** with React
 
-- **Built-in Laravel authentication:** Fully configured session-based authentication.
-- **All Fortify features** enabled by default, including Two-Factor Authentication, Passkeys, and mandatory Email Verification.
-- **SPA experience** with React + Inertia.js + Vite.
+## Enhancements beyond original starter kit
 
-## What's Different?
+- **UUIDs** for all models
+- **Soft delete** on Users model
+- **User profile picture** a.k.a. avatar
+- **Email verification** enabled by default
+- **User email invitations** powered by `spatie/laravel-welcome-notification`
+- **User activity logging** powered by `spatie/laravel-activitylog` with preconfigured one-year cleanup
+- **Role-Based Access Control** powered by `spatie/laravel-permission`
+- **i18n** with browser auto-detection powered by `react-i18next` and component for manual change. Available languages:
+    1. Brazilian Portuguese
+    2. English
 
-I've modified the base kit to solve common development pain points and improve security:
-
-### Security and architecture
-- **UUIDs for Users:** The default integer `id` column in the users table has been replaced with `uuid` to prevent user-count inference attacks.
-- **Email verification forced by default**
-- **Advanced RBAC:** User CRUD with strict Role-Based Access Control powered by `spatie/laravel-permission`.
-- **User Invitations:** Seamless user onboarding via email invitations using `spatie/laravel-welcome-notification`.
-
-### UI/UX
-- **Pruned repeated code:** Navigation links unified into a single `lib` file, shared seamlessly across both Sidebar and Header layouts.
-- **Rich colors:** `shadcn sonner` defined with `richColors` by default for better user feedback visibility.
-
-### Internationalization (i18n)
-- **`react-i18next` integration:** Pre-configured with browser language auto-detection and a built-in UI component to switch languages on the go.
-  - By the way, it is loaded before the React app, so the users won't see the texts changing before their eyes
-  - The chosen/detected language is stored in a cookie, synchronized with Laravel backend via Inertia.
-- **Single translation source:** I've built a custom adapter for `react-i18next` so it expects the standard Laravel parameters syntax `:name` instead of the default `{{name}}`. **No need of separate JSON files for back and frontend.**
-- **pt-BR included:** The entire starter kit is fully translated into Brazilian Portuguese, serving as a perfect base if you'd like to contribute here by adding more languages, or use on your own project.
-  - The original kit doesn't apply user-friendly attribute names on the default profile requests, so I also fixed it... and translated, of course.
-  - This translation also includes the default email notifications for **email verification** and **password reset**.
+### A few UI/UX features
+- **Infinite scroll list** schema created with reusable component
+- **Unified navigation links** for both _header_ and _sidebar_ layouts
+- **Rich colors:** `shadcn sonner` with `richColors` enabled by default
 
 ## Installation
-Require the package via Composer:
-
-```bash
-composer create-project mlmendes/laravel-react-starter-kit
-```
-
-Or through the Laravel Installer, if you prefer using it:
+Through the Laravel Installer:
 
 ```bash
 laravel new my-app --using=mlmendes/laravel-react-starter-kit
 ```
 
-If you don't have the official Laravel installer, [take a look at the docs](https://laravel.com/docs/13.x#installing-php).
+Or via composer:
+
+```bash
+composer create-project mlmendes/laravel-react-starter-kit
+```
 
 ## Roadmap
-There are more improvements coming next:
-
 - **Multi-level tenancy:** Architecture to support a single application serving multiple clients, where clients can also manage their own sub-clients.
-- **Profile Picture Upload:** Built-in avatar management for users.
-- **Teams Integration:** Implementing the missing Teams feature from the original starter kit.
-- **WorkOS Branch:** A dedicated branch/option for WorkOS authentication.
