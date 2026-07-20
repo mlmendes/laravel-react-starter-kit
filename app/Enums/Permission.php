@@ -4,6 +4,7 @@ namespace App\Enums;
 
 enum Permission: string
 {
+    case USERS_ACTIVITY_LOG_VIEW_ANY = 'users:activity log:view any';
     case USERS_CREATE = 'users:create';
     case USERS_DELETE = 'users:delete';
     case USERS_UPDATE = 'users:update';

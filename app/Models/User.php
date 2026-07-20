@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Storage;
 use Laravel\Fortify\Contracts\PasskeyUser;
 use Laravel\Fortify\PasskeyAuthenticatable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use Spatie\Activitylog\Models\Concerns\HasActivity;
+use Spatie\Activitylog\Support\LogOptions;
 use Spatie\Permission\Traits\HasRoles;
 use Spatie\WelcomeNotification\ReceivesWelcomeNotification;
 
@@ -40,7 +42,7 @@ use Spatie\WelcomeNotification\ReceivesWelcomeNotification;
 class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, HasRoles, HasUuids, Notifiable, PasskeyAuthenticatable, ReceivesWelcomeNotification, SoftDeletes, TwoFactorAuthenticatable;
+    use HasActivity, HasFactory, HasRoles, HasUuids, Notifiable, PasskeyAuthenticatable, ReceivesWelcomeNotification, SoftDeletes, TwoFactorAuthenticatable;
 
     protected $primaryKey = 'uuid';
 
@@ -93,5 +95,14 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
         }
 
         return false;
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->dontLogEmptyChanges()
+            ->logExcept(attributes: ['password'])
+            ->logFillable()
+            ->logOnlyDirty();
     }
 }

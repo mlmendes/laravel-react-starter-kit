@@ -1,12 +1,83 @@
 import { router } from '@inertiajs/react';
-import { Check, Pencil, X } from 'lucide-react';
+import { Check, ChevronRight, Pencil, X } from 'lucide-react';
 import { Translation } from 'react-i18next';
 import { LocalizedTimestamp } from '@/components/localized-timestamp';
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import UserAvatar from '@/components/user-avatar';
 import users from '@/routes/users';
 import roles from '@/routes/users/roles';
-import type { ItemSchema, Role, User } from '@/types';
+import type { Activity, ItemSchema, Role, User } from '@/types';
+
+export const activity: ItemSchema<Activity> = {
+    media: (activity) =>
+        activity.causer ? <UserAvatar user={activity.causer} /> : undefined,
+    title: (activity) => activity.causer?.name,
+    fields: [
+        {
+            key: 'event',
+            label: 'Event',
+            render: (activity) => activity.event,
+        },
+        {
+            key: 'subject_type',
+            label: 'Subject type',
+            render: (activity) => activity.subject_type,
+        },
+        {
+            key: 'attribute_changes',
+            label: 'Attributes',
+            render: (activity) => {
+                const attributes = activity.attribute_changes
+                    ?.attributes as Record<string, unknown>;
+                const old = activity.attribute_changes?.old as Record<
+                    string,
+                    unknown
+                >;
+
+                return (
+                    <ul className="space-y-1 text-sm">
+                        {Object.keys(attributes).map((key) => {
+                            let oldValue = undefined;
+
+                            if (old) {
+                                oldValue = old[key] ?? undefined;
+                            }
+
+                            const newValue = attributes[key];
+
+                            return (
+                                <li key={key} className="flex flex-wrap gap-1">
+                                    <span className="font-bold">{key}:</span>
+                                    {oldValue && (
+                                        <>
+                                            <span className="text-destructive line-through">
+                                                {oldValue as string}
+                                            </span>
+                                            <ChevronRight className="size-5" />
+                                        </>
+                                    )}
+                                    <span>{newValue as string}</span>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                );
+            },
+        },
+        {
+            key: 'created_at',
+            label: 'Logged at',
+            render: (activity) => (
+                <LocalizedTimestamp timestamp={activity.created_at} />
+            ),
+        },
+        {
+            key: 'log_name',
+            label: 'Log name',
+            render: (activity) => activity.log_name,
+        },
+    ],
+};
 
 export const role: ItemSchema<Role> = {
     title: (role) => role.name,
