@@ -236,6 +236,7 @@ export default function RoleForm({ permissions, role, users }: Props) {
             method={formRoute.method}
             transform={(data) => ({
                 permissions: [],
+                users: [],
                 ...data,
             })}
         >
