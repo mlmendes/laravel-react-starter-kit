@@ -14,7 +14,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get(uri: 'settings/avatar', action: [ProfilePictureController::class, 'view'])->name('avatar.view');
     Route::post(uri: 'settings/avatar', action: [ProfilePictureController::class, 'upload'])->name('avatar.upload');
-    Route::delete(uri: 'settings/avatar', action: [ProfilePictureController::class, 'destroy'])->name('avatar.destroy');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
