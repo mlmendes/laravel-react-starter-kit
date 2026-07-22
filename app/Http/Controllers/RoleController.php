@@ -66,7 +66,7 @@ class RoleController extends Controller
 
         return Inertia::render(component: 'users/roles/edit', props: [
             'permissions' => $this->permissionService->getAll(),
-            'role' => $role->load(relations: 'users'),
+            'role' => $role->load(relations: ['permissions', 'users']),
             'users' => Inertia::scroll(fn () => $this->userService->getAll()),
         ]);
     }
