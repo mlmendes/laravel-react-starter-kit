@@ -1,5 +1,5 @@
 import { router } from '@inertiajs/react';
-import { Check, ChevronRight, Pencil, X } from 'lucide-react';
+import { Check, Pencil, X } from 'lucide-react';
 import { Translation } from 'react-i18next';
 import { LocalizedTimestamp } from '@/components/localized-timestamp';
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
@@ -50,10 +50,10 @@ export const activity: ItemSchema<Activity> = {
                                     <span className="font-bold">{key}:</span>
                                     {oldValue && (
                                         <>
-                                            <span className="text-destructive line-through">
+                                            <span className="text-destructive">
                                                 {oldValue as string}
                                             </span>
-                                            <ChevronRight className="size-5" />
+                                            &#8594;
                                         </>
                                     )}
                                     <span>{newValue as string}</span>

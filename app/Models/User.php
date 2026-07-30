@@ -27,7 +27,7 @@ use Spatie\WelcomeNotification\ReceivesWelcomeNotification;
  * @property string $name
  * @property string $email
  * @property Carbon|null $email_verified_at
- * @property string $avatar
+ * @property string|null $avatar
  * @property string $password
  * @property string|null $two_factor_secret
  * @property string|null $two_factor_recovery_codes
@@ -101,8 +101,8 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
     {
         return LogOptions::defaults()
             ->dontLogEmptyChanges()
-            ->logExcept(attributes: ['password'])
             ->logFillable()
+            ->logExcept(['avatar', 'password'])
             ->logOnlyDirty();
     }
 }

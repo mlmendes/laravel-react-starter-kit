@@ -8,14 +8,6 @@ use Illuminate\Validation\Rule;
 
 class RoleRequest extends FormRequest
 {
-    public function attributes(): array
-    {
-        return [
-            'name' => __('Name'),
-            'permissions' => __('Permissions'),
-        ];
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *

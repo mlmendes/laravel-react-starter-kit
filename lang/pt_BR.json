@@ -151,8 +151,8 @@
     "Reset password": "Redefinir senha",
     "Reset your password": "Redefina sua senha",
     "Restore": "Restaurar",
-    "Role": "Função",
-    "Roles": "Funções",
+    "Role": "Nível de acesso",
+    "Roles": "Níveis de acesso",
     "Save": "Salvar",
     "Save password": "Salvar senha",
     "Search": "Pesquisar",
@@ -222,7 +222,7 @@
     "or, enter the code manually": "ou insira o código manualmente",
     "recovery codes": "códigos de recuperação",
     "results": "resultados",
-    "role": "função",
+    "role": "nível de acesso",
     "to": "a",
     "user": "usuário"
 }
