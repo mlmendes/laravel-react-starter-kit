@@ -29,6 +29,9 @@ class Activity extends SpatieActivity
 
     public ?string $updated_at = null;
 
+    /**
+     * @return Attribute<string, void>
+     */
     protected function logName(): Attribute
     {
         return Attribute::make(
@@ -36,6 +39,9 @@ class Activity extends SpatieActivity
         );
     }
 
+    /**
+     * @return Attribute<string, void>
+     */
     protected function subjectType(): Attribute
     {
         return Attribute::make(
@@ -43,6 +49,9 @@ class Activity extends SpatieActivity
         );
     }
 
+    /**
+     * @return Attribute<string, void>
+     */
     protected function event(): Attribute
     {
         return Attribute::make(
@@ -50,11 +59,17 @@ class Activity extends SpatieActivity
         );
     }
 
+    /**
+     * @return Attribute<array<string, mixed>, void>
+     */
     protected function attributeChanges(): Attribute
     {
         return Attribute::make(
             get: function (mixed $original) {
-                return collect(json_decode($original, true))->mapWithKeys(function ($content, $index) {
+                /** @var array<string, array<string, mixed>> $attributeChanges */
+                $attributeChanges = json_decode($original, true);
+
+                return collect($attributeChanges)->mapWithKeys(function ($content, $index) {
                     $attributes = [];
                     foreach ($content as $attribute => $value) {
                         if (Lang::has("validation.attributes.{$attribute}")) {
