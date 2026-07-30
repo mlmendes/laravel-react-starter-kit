@@ -13,11 +13,12 @@ readonly class UserService
     public function __construct(private UserRepository $userRepository) {}
 
     /**
+     * @param  array<string,string>|null  $filter
      * @return CursorPaginator<int, User>
      */
-    public function getAll(): CursorPaginator
+    public function getAll(?array $filter = null): CursorPaginator
     {
-        return $this->userRepository->all();
+        return $this->userRepository->all($filter);
     }
 
     /**

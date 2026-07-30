@@ -4,8 +4,9 @@ import type { RouteDefinition } from '@/wayfinder';
 
 export type AppLayoutProps = {
     action?: RouteDefinition<'get'> | undefined;
-    children: ReactNode;
     breadcrumbs?: BreadcrumbItem[];
+    children: ReactNode;
+    filter?: ReactNode;
 };
 
 export type AppVariant = 'header' | 'sidebar';

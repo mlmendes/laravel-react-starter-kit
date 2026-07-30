@@ -1,5 +1,6 @@
 import { InfiniteScroll } from '@inertiajs/react';
 import { ListItemGroup } from '@/components/list-item-group';
+import UserFilter from '@/pages/users/filter';
 import users from '@/routes/users';
 import { user } from '@/schemas';
 import type { CursorPaginatedResponse, User } from '@/types';
@@ -24,4 +25,5 @@ Index.layout = () => ({
             href: users.index(),
         },
     ],
+    filter: <UserFilter />,
 });

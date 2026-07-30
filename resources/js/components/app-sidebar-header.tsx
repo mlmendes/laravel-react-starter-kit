@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import CreateButton from '@/components/create-button';
 import { SidebarTrigger } from '@/components/ui/sidebar';
@@ -7,9 +8,11 @@ import type { RouteDefinition } from '@/wayfinder';
 export function AppSidebarHeader({
     action,
     breadcrumbs = [],
+    filter,
 }: {
     action?: RouteDefinition<'get'>;
     breadcrumbs?: BreadcrumbItemType[];
+    filter?: ReactNode;
 }) {
     return (
         <header className="flex h-16 shrink-0 items-center gap-2 border-b border-sidebar-border/50 px-6 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 md:px-4">
@@ -18,6 +21,7 @@ export function AppSidebarHeader({
                 <Breadcrumbs breadcrumbs={breadcrumbs} />
             </div>
             <div className="ms-auto inline-flex gap-3">
+                {filter}
                 {action && <CreateButton route={action} />}
             </div>
         </header>

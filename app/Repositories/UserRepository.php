@@ -8,11 +8,21 @@ use Illuminate\Pagination\CursorPaginator;
 class UserRepository
 {
     /**
+     * @param  array<string,string>|null  $filter
      * @return CursorPaginator<int, User>
      */
-    public function all(): CursorPaginator
+    public function all(?array $filter = null): CursorPaginator
     {
-        return User::query()->withTrashed()->orderBy(column: 'name')->cursorPaginate();
+        $query = User::query()->withTrashed()->orderBy(column: 'name');
+
+        if (! empty($filter['name'])) {
+            $query->where('name', 'LIKE', "%{$filter['name']}%");
+        }
+        if (! empty($filter['email'])) {
+            $query->where('email', 'LIKE', "%{$filter['email']}%");
+        }
+
+        return $query->cursorPaginate();
     }
 
     /**

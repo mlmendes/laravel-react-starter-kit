@@ -1,9 +1,11 @@
 import { Link, usePage } from '@inertiajs/react';
-import { Menu, Search } from 'lucide-react';
+import { Menu } from 'lucide-react';
+import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import AppLogo from '@/components/app-logo';
 import AppLogoIcon from '@/components/app-logo-icon';
 import { Breadcrumbs } from '@/components/breadcrumbs';
+import CreateButton from '@/components/create-button';
 import { LanguageSwitcher } from '@/components/language-switcher';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -37,15 +39,18 @@ import { mainNavItems, secondaryNavItems } from '@/lib/nav-items';
 import { cn, toUrl } from '@/lib/utils';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
+import type { RouteDefinition } from '@/wayfinder';
 
 type Props = {
+    action?: RouteDefinition<'get'>;
     breadcrumbs?: BreadcrumbItem[];
+    filter?: ReactNode;
 };
 
 const activeItemStyles =
     'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100';
 
-export function AppHeader({ breadcrumbs = [] }: Props) {
+export function AppHeader({ action, breadcrumbs = [], filter }: Props) {
     const { t } = useTranslation();
     const page = usePage();
     const { auth } = page.props;
@@ -161,13 +166,8 @@ export function AppHeader({ breadcrumbs = [] }: Props) {
 
                     <div className="ml-auto flex items-center space-x-2">
                         <div className="relative flex items-center space-x-1">
-                            <Button
-                                variant="ghost"
-                                size="icon"
-                                className="group h-9 w-9 cursor-pointer"
-                            >
-                                <Search className="!size-5 opacity-80 group-hover:opacity-100" />
-                            </Button>
+                            {filter}
+                            {action && <CreateButton route={action} />}
                             <div className="ml-1 hidden gap-1 lg:flex">
                                 {secondaryNavItems.map((item) => (
                                     <Tooltip key={item.title}>

@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import AppLayoutTemplate from '@/layouts/app/app-sidebar-layout';
 import type { BreadcrumbItem } from '@/types';
 import type { RouteDefinition } from '@/wayfinder';
@@ -6,13 +7,19 @@ export default function AppLayout({
     action,
     breadcrumbs = [],
     children,
+    filter,
 }: {
     action?: RouteDefinition<'get'>;
     breadcrumbs?: BreadcrumbItem[];
-    children: React.ReactNode;
+    children: ReactNode;
+    filter?: ReactNode;
 }) {
     return (
-        <AppLayoutTemplate action={action} breadcrumbs={breadcrumbs}>
+        <AppLayoutTemplate
+            action={action}
+            breadcrumbs={breadcrumbs}
+            filter={filter}
+        >
             {children}
         </AppLayoutTemplate>
     );

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Services\RoleService;
 use App\Services\UserService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -18,12 +19,12 @@ class UserController extends Controller
         private readonly UserService $userService
     ) {}
 
-    public function index(): Response
+    public function index(Request $request): Response
     {
         Gate::authorize(ability: 'view-any', arguments: User::class);
 
         return Inertia::render(component: 'users/index', props: [
-            'users' => Inertia::scroll(fn () => $this->userService->getAll()),
+            'users' => Inertia::scroll(fn () => $this->userService->getAll($request->query('filter'))),
         ]);
     }
 
