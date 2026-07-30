@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
@@ -23,6 +24,12 @@ class ActivityController extends Controller
 
         if (! empty($filter['attributes'])) {
             $query->where('attribute_changes', 'LIKE', '%'.$filter['attributes'].'%');
+        }
+        if (! empty($filter['period']['from'])) {
+            $query->whereDate('created_at', '>=', Carbon::createFromFormat('Y-m-d', $filter['period']['from'])->startOfDay());
+        }
+        if (! empty($filter['period']['to'])) {
+            $query->whereDate('created_at', '<=', Carbon::createFromFormat('Y-m-d', $filter['period']['to'])->endOfDay());
         }
 
         return Inertia::render('users/activity_log/index', [

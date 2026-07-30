@@ -2,6 +2,7 @@ import { Form, usePage } from '@inertiajs/react';
 import { Funnel } from 'lucide-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { DatePickerWithRange } from '@/components/date-picker-with-range';
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
@@ -18,6 +19,10 @@ import { activity_log } from '@/routes';
 type PageProps = {
     filter?: {
         attributes?: string;
+        period?: {
+            from?: string;
+            to?: string;
+        };
     };
 };
 
@@ -33,7 +38,7 @@ export default function ActivityFilter() {
                     <Funnel />
                 </Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent aria-describedby={undefined}>
                 <DialogHeader>
                     <DialogTitle>{t('Activity search')}</DialogTitle>
                 </DialogHeader>
@@ -43,6 +48,11 @@ export default function ActivityFilter() {
                     onSuccess={() => setOpen(false)}
                 >
                     <FieldGroup>
+                        <DatePickerWithRange
+                            id="filter[period]"
+                            label={t('Period')}
+                            name="filter[period]"
+                        />
                         <Field>
                             <Label htmlFor="attributes">
                                 {t('Attributes')}

@@ -52,6 +52,7 @@
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "concurrently": "^9.0.1",
+        "date-fns": "^4.4.0",
         "globals": "^15.14.0",
         "i18next": "^26.3.1",
         "i18next-browser-languagedetector": "^8.2.1",
@@ -63,6 +64,7 @@
         "radix-ui": "^1.5.0",
         "react": "^19.2.0",
         "react-avatar-editor": "^15.1.0",
+        "react-day-picker": "^10.0.1",
         "react-dom": "^19.2.0",
         "react-dropzone": "^15.0.0",
         "react-i18next": "^17.0.8",
@@ -80,5 +82,6 @@
         "@tailwindcss/oxide-win32-x64-msvc": "^4.0.1",
         "lightningcss-linux-x64-gnu": "^1.29.1",
         "lightningcss-win32-x64-msvc": "^1.29.1"
-    }
+    },
+    "packageManager": "pnpm@11.18.0+sha512.33d83c77da82f49fba836925c6f1b841181ec3132b670639bd012f7075f5c7cf634c5f870147c19aae7478fac01df09d8892e880454896edd23ee9b33757563c"
 }
