@@ -1,0 +1,63 @@
+import { Form, usePage } from '@inertiajs/react';
+import { Funnel } from 'lucide-react';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Button } from '@/components/ui/button';
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from '@/components/ui/dialog';
+import { Field, FieldGroup } from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { activity_log } from '@/routes';
+
+type PageProps = {
+    filter?: {
+        attributes?: string;
+    };
+};
+
+export default function ActivityFilter() {
+    const { t } = useTranslation();
+    const { filter } = usePage<PageProps>().props;
+    const [open, setOpen] = useState<boolean>(false);
+
+    return (
+        <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+                <Button type="button" variant="outline">
+                    <Funnel />
+                </Button>
+            </DialogTrigger>
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>{t('Activity search')}</DialogTitle>
+                </DialogHeader>
+                <Form
+                    action={activity_log().url}
+                    method={activity_log().method}
+                    onSuccess={() => setOpen(false)}
+                >
+                    <FieldGroup>
+                        <Field>
+                            <Label htmlFor="attributes">
+                                {t('Attributes')}
+                            </Label>
+                            <Input
+                                defaultValue={filter?.attributes}
+                                id="attributes"
+                                name="filter[attributes]"
+                                type="text"
+                            />
+                        </Field>
+                        <Button type="submit">{t('Search')}</Button>
+                    </FieldGroup>
+                </Form>
+            </DialogContent>
+        </Dialog>
+    );
+}

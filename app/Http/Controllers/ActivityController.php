@@ -17,8 +17,17 @@ class ActivityController extends Controller
     {
         Gate::authorize('view-any', Activity::class);
 
+        $query = Activity::query()->with(['causer'])->orderByDesc('created_at');
+
+        $filter = $request->query('filter');
+
+        if (! empty($filter['attributes'])) {
+            $query->where('attribute_changes', 'LIKE', '%'.$filter['attributes'].'%');
+        }
+
         return Inertia::render('users/activity_log/index', [
-            'activities' => Inertia::scroll(fn () => Activity::query()->with(['causer'])->orderByDesc('created_at')->cursorPaginate()),
+            'activities' => Inertia::scroll(fn () => $query->cursorPaginate()),
+            'filter' => $filter,
         ]);
     }
 }
