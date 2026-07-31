@@ -21,19 +21,18 @@ const localeMap: Record<string, typeof ptBR> = {
 };
 
 export function DatePickerWithRange({
+    defaultValue,
     id,
     label,
     name,
 }: {
+    defaultValue?: DateRange;
     id: string;
     label: string;
     name: string;
 }) {
     const { i18n, t } = useTranslation();
-    const [date, setDate] = useState<DateRange | undefined>({
-        from: undefined,
-        to: undefined,
-    });
+    const [date, setDate] = useState<DateRange | undefined>(defaultValue);
     const currentLocale = localeMap[i18n.language] || enUS;
 
     return (

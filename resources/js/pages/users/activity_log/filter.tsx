@@ -49,6 +49,14 @@ export default function ActivityFilter() {
                 >
                     <FieldGroup>
                         <DatePickerWithRange
+                            defaultValue={{
+                                from: filter?.period?.from
+                                    ? new Date(filter.period.from)
+                                    : undefined,
+                                to: filter?.period?.to
+                                    ? new Date(filter.period.to)
+                                    : undefined,
+                            }}
                             id="filter[period]"
                             label={t('Period')}
                             name="filter[period]"
