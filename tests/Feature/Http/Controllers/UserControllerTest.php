@@ -18,7 +18,12 @@ test('can access users index', function () {
         Permission::USERS_UPDATE,
     ]);
     $this->actingAs($this->authUser)
-        ->get(route('users.index'))
+        ->get(route('users.index', [
+            'filter' => [
+                'name' => fake()->firstName(),
+                'email' => fake()->email(),
+            ],
+        ]))
         ->assertOk();
 });
 
