@@ -32,6 +32,10 @@ export default function UserForm({ user }: Props) {
             className="m-8 max-w-xs"
             disableWhileProcessing
             method={formRoute.method}
+            transform={(data) => ({
+                roles: [],
+                ...data,
+            })}
         >
             {({ errors, resetAndClearErrors }) => (
                 <FieldSet>
