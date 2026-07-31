@@ -14,16 +14,18 @@ export const mainNavItems: NavItem[] = [
         title: 'Users',
         href: users.index(),
         icon: Users,
-    },
-    {
-        title: 'Roles',
-        href: users.roles.index(),
-        icon: ShieldUser,
-    },
-    {
-        title: 'Activity log',
-        href: users.activity_log(),
-        icon: Logs,
+        items: [
+            {
+                title: 'Roles',
+                href: users.roles.index(),
+                icon: ShieldUser,
+            },
+            {
+                title: 'Activity log',
+                href: users.activity_log(),
+                icon: Logs,
+            },
+        ],
     },
 ];
 

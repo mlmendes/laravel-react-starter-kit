@@ -32,10 +32,12 @@ export type ItemSchema<T> = {
 };
 
 export type NavItem = {
-    title: string;
     href: NonNullable<InertiaLinkProps['href']>;
     icon?: LucideIcon | null;
     isActive?: boolean;
+    items?: NavItem[];
+    permission?: string;
+    title: string;
 };
 
 export type SoftDeletable = {
