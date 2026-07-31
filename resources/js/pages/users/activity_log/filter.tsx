@@ -14,7 +14,7 @@ import {
 import { Field, FieldGroup } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { activity_log } from '@/routes';
+import users from '@/routes/users';
 
 type PageProps = {
     filter?: {
@@ -43,8 +43,8 @@ export default function ActivityFilter() {
                     <DialogTitle>{t('Activity search')}</DialogTitle>
                 </DialogHeader>
                 <Form
-                    action={activity_log().url}
-                    method={activity_log().method}
+                    action={users.activity_log().url}
+                    method={users.activity_log().method}
                     onSuccess={() => setOpen(false)}
                 >
                     <FieldGroup>

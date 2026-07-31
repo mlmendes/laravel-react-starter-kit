@@ -12,7 +12,7 @@ test('authorized user can view users activity log', function () {
     $this->user->givePermissionTo(Permission::USERS_ACTIVITY_LOG_VIEW_ANY);
 
     $this->actingAs($this->user)
-        ->get(route('activity_log', [
+        ->get(route('users.activity_log', [
             'filter' => [
                 'attributes' => 'something changed',
                 'period' => [

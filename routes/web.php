@@ -10,11 +10,11 @@ use Spatie\WelcomeNotification\WelcomesNewUsers;
 Route::inertia('/', 'welcome')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('activity_log', ActivityController::class)->name('activity_log');
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
     Route::resource(name: 'users', controller: UserController::class)->except(methods: 'show')->withTrashed();
     Route::post(uri: 'users/{user}/restore', action: [UserController::class, 'restore'])->name('users.restore')->withTrashed();
     Route::name('users.')->prefix('users')->group(function () {
+        Route::get('activity_log', ActivityController::class)->name('activity_log');
         Route::resource(name: 'roles', controller: RoleController::class)->except(methods: 'show');
     });
 });

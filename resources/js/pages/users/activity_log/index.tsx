@@ -19,7 +19,6 @@ import {
 import ActivityCauser from '@/pages/users/activity_log/activity-causer';
 import ActivityDetails from '@/pages/users/activity_log/activity-details';
 import ActivityFilter from '@/pages/users/activity_log/filter';
-import { activity_log } from '@/routes';
 import users from '@/routes/users';
 import type { Activity, CursorPaginatedResponse } from '@/types';
 
@@ -100,7 +99,7 @@ Index.layout = () => ({
         },
         {
             title: 'Activity log',
-            href: activity_log(),
+            href: users.activity_log(),
         },
     ],
 });

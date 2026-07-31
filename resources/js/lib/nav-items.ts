@@ -1,6 +1,6 @@
 import { BookOpen, FolderGit2, Logs, ShieldUser, Users } from 'lucide-react';
 import { LayoutGrid } from 'lucide-react';
-import { activity_log, dashboard } from '@/routes';
+import { dashboard } from '@/routes';
 import users from '@/routes/users';
 import type { NavItem } from '@/types';
 
@@ -22,7 +22,7 @@ export const mainNavItems: NavItem[] = [
     },
     {
         title: 'Activity log',
-        href: activity_log(),
+        href: users.activity_log(),
         icon: Logs,
     },
 ];
