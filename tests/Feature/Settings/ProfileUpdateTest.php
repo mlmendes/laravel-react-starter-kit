@@ -17,11 +17,13 @@ test('profile page is displayed', function (): void {
 test('profile information can be updated', function (): void {
     $user = User::factory()->create();
 
+    $email = fake()->unique()->email();
+
     $response = $this
         ->actingAs($user)
         ->patch(route('profile.update'), [
             'name' => 'Test User',
-            'email' => 'test@example.com',
+            'email' => $email,
         ]);
 
     $response
@@ -31,7 +33,7 @@ test('profile information can be updated', function (): void {
     $user->refresh();
 
     expect($user->name)->toBe('Test User')
-        ->and($user->email)->toBe('test@example.com')
+        ->and($user->email)->toBe($email)
         ->and($user->email_verified_at)->toBeNull();
 });
 

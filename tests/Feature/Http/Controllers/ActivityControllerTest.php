@@ -4,7 +4,6 @@ use App\Enums\Permission;
 use App\Models\User;
 
 beforeEach(function (): void {
-    $this->seed();
     $this->user = User::factory()->create();
 });
 

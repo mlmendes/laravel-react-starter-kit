@@ -7,7 +7,6 @@ use App\Models\User;
 use function PHPUnit\Framework\assertTrue;
 
 beforeEach(function (): void {
-    $this->seed();
     $this->authUser = User::factory()->create();
 });
 
