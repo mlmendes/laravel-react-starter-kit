@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->configureDefaults();
 
-        Activity::beforeLogging(function ($activity) {
+        Activity::beforeLogging(function ($activity): void {
             $activity->properties = $activity->properties
                 ->put('ip_address', request()->ip())
                 ->put('user_agent', request()->userAgent());

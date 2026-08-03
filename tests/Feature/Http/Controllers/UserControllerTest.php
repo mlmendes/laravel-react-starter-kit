@@ -6,12 +6,12 @@ use App\Models\User;
 
 use function PHPUnit\Framework\assertTrue;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->seed();
     $this->authUser = User::factory()->create();
 });
 
-test('can access users index', function () {
+test('can access users index', function (): void {
     $this->authUser->givePermissionTo([
         Permission::USERS_CREATE,
         Permission::USERS_DELETE,
@@ -27,7 +27,7 @@ test('can access users index', function () {
         ->assertOk();
 });
 
-test('can create user', function () {
+test('can create user', function (): void {
     $this->authUser->givePermissionTo(Permission::USERS_CREATE);
     $roles = collect(Role::factory(10)->create())->random(3);
     $rolesIds = $roles->pluck('uuid')->toArray();
@@ -52,7 +52,7 @@ test('can create user', function () {
     assertTrue($user->hasExactRoles($roles));
 });
 
-test('can edit user', function () {
+test('can edit user', function (): void {
     $this->authUser->givePermissionTo(Permission::USERS_UPDATE);
     $newUser = User::factory()->create();
     $roles = collect(Role::factory(10)->create())->random(3);
@@ -79,7 +79,7 @@ test('can edit user', function () {
     assertTrue($newUser->hasExactRoles($roles));
 });
 
-test('can delete user', function () {
+test('can delete user', function (): void {
     $this->authUser->givePermissionTo(Permission::USERS_DELETE);
     $newUser = User::factory()->create();
     $this->actingAs($this->authUser)
@@ -89,7 +89,7 @@ test('can delete user', function () {
     $this->assertSoftDeleted($newUser);
 });
 
-test('can restore user', function () {
+test('can restore user', function (): void {
     $this->authUser->givePermissionTo(Permission::USERS_DELETE);
     $softDeletedUser = User::factory()->softDeleted()->create();
     $this->actingAs($this->authUser)

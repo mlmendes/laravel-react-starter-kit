@@ -83,10 +83,10 @@ function assertRoleExists(string $name, array $permissionsIds): void
 {
     $role = RoleModel::query()->where([
         'name' => $name,
-    ])->whereHas(relation: 'permissions', callback: function (Builder $query) use ($permissionsIds) {
+    ])->whereHas(relation: 'permissions', callback: function (Builder $query) use ($permissionsIds): void {
         $query->whereIn(column: 'uuid', values: $permissionsIds);
     }, operator: '=', count: count($permissionsIds)
-    )->whereDoesntHave(relation: 'permissions', callback: function ($query) use ($permissionsIds) {
+    )->whereDoesntHave(relation: 'permissions', callback: function ($query) use ($permissionsIds): void {
         $query->whereNotIn(column: 'uuid', values: $permissionsIds);
     })->sole();
 

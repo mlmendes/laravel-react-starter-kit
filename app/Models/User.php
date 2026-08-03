@@ -58,12 +58,12 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
 
     protected static function booted(): void
     {
-        static::updating(function (User $user) {
+        static::updating(function (User $user): void {
             if ($user->isDirty('avatar') && $user->getRawOriginal('avatar')) {
                 Storage::disk('public')->delete($user->getRawOriginal('avatar'));
             }
         });
-        static::forceDeleting(function (User $user) {
+        static::forceDeleting(function (User $user): void {
             if ($user->getRawOriginal('avatar')) {
                 Storage::disk('public')->delete($user->getRawOriginal('avatar'));
             }

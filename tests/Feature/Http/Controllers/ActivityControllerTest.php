@@ -3,12 +3,12 @@
 use App\Enums\Permission;
 use App\Models\User;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->seed();
     $this->user = User::factory()->create();
 });
 
-test('authorized user can view users activity log', function () {
+test('authorized user can view users activity log', function (): void {
     $this->user->givePermissionTo(Permission::USERS_ACTIVITY_LOG_VIEW_ANY);
 
     $this->actingAs($this->user)

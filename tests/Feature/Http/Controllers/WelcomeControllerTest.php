@@ -3,24 +3,24 @@
 use App\Models\User;
 use Spatie\WelcomeNotification\WelcomeNotification;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->user = User::factory()->unverified()->create();
 
     $this->welcomeNotification = new WelcomeNotification(now()->addDay());
     $this->welcomeNotification->toMail($this->user);
 });
 
-it('can show the welcome form', function () {
+it('can show the welcome form', function (): void {
     $this->get($this->welcomeNotification->showWelcomeFormUrl)->assertOk();
 });
 
-it('will show the invalid link view when the link is invalid', function () {
+it('will show the invalid link view when the link is invalid', function (): void {
     $invalidWelcomeUrl = $this->welcomeNotification->showWelcomeFormUrl.'blabla';
 
     $this->get($invalidWelcomeUrl)->assertForbidden();
 });
 
-it('can set the initial password', function () {
+it('can set the initial password', function (): void {
     $this->withoutExceptionHandling();
     $password = 'my-new-password';
 
@@ -30,7 +30,7 @@ it('can set the initial password', function () {
     $this->assertAuthenticatedAs($this->user);
 });
 
-it('can login with the new password', function () {
+it('can login with the new password', function (): void {
     $password = 'my-new-password';
 
     savePassword($password);
@@ -38,23 +38,22 @@ it('can login with the new password', function () {
     expect(auth()->validate([
         'email' => $this->user->email,
         'password' => $password,
-    ]))->toBeTrue();
-
-    expect(auth()->validate([
-        'email' => $this->user->email,
-        'password' => 'invalid password',
-    ]))->toBeFalse();
+    ]))->toBeTrue()
+        ->and(auth()->validate([
+            'email' => $this->user->email,
+            'password' => 'invalid password',
+        ]))->toBeFalse();
 });
 
-test('after being used the welcome url is not valid anymore', function () {
+test('after being used the welcome url is not valid anymore', function (): void {
     savePassword('my-new-password');
 
     $this->get($this->welcomeNotification->showWelcomeFormUrl)
         ->assertForbidden();
 });
 
-test('the welcome link will expire after the given point in time', function () {
-    $this->freezeTime(function () {
+test('the welcome link will expire after the given point in time', function (): void {
+    $this->freezeTime(function (): void {
         $welcomeNotification = (new WelcomeNotification(now()->addMinute()));
         $welcomeNotification->toMail($this->user);
 

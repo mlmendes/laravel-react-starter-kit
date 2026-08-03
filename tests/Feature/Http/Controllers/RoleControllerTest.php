@@ -4,12 +4,12 @@ use App\Enums\Permission;
 use App\Models\Role;
 use App\Models\User;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->seed();
     $this->authUser = User::factory()->create();
 });
 
-test('can access users\' roles index', function () {
+test('can access users\' roles index', function (): void {
     $this->authUser->givePermissionTo([
         Permission::USERS_ROLES_CREATE,
         Permission::USERS_ROLES_FORCE_DELETE,
@@ -20,7 +20,7 @@ test('can access users\' roles index', function () {
         ->assertOk();
 });
 
-test('can create role', function () {
+test('can create role', function (): void {
     $this->authUser->givePermissionTo(Permission::USERS_ROLES_CREATE);
 
     $name = fake()->word();
@@ -42,7 +42,7 @@ test('can create role', function () {
     assertRoleExists(name: $name, permissionsIds: $permissions);
 });
 
-test('can edit role', function () {
+test('can edit role', function (): void {
     $this->authUser->givePermissionTo(Permission::USERS_ROLES_UPDATE);
 
     $role = Role::factory()->create();
@@ -66,7 +66,7 @@ test('can edit role', function () {
     assertRoleExists(name: $newName, permissionsIds: $newPermissions);
 });
 
-test('can force delete role', function () {
+test('can force delete role', function (): void {
     $this->authUser->givePermissionTo(Permission::USERS_ROLES_FORCE_DELETE);
     $role = Role::factory()->create();
 
