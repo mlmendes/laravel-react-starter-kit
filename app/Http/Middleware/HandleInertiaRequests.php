@@ -2,6 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\Role;
+use App\Models\Activity;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Inertia\Middleware;
@@ -44,11 +47,20 @@ class HandleInertiaRequests extends Middleware
 
         App::setLocale($locale);
 
+        if (auth()->check()) {
+            $pages = [
+                '/users' => $request->user()->can('view-any', User::class),
+                '/users/roles' => $request->user()->can('view-any', Role::class),
+                '/users/activity_log' => $request->user()->can('view-any', Activity::class),
+            ];
+        }
+
         return [
             ...parent::share($request),
             'name' => config('app.name'),
             'auth' => [
                 'user' => $request->user(),
+                'allowed_pages' => array_keys($pages ?? [], true, true),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
         ];

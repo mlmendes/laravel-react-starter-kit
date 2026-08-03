@@ -38,7 +38,7 @@ import {
 import { UserMenuContent } from '@/components/user-menu-content';
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import { useInitials } from '@/hooks/use-initials';
-import { mainNavItems, secondaryNavItems } from '@/lib/nav-items';
+import { useNavigation } from '@/hooks/use-navigation';
 import { cn, toUrl } from '@/lib/utils';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem, NavItem } from '@/types';
@@ -161,6 +161,7 @@ export function AppHeader({ action, breadcrumbs = [], filter }: Props) {
     const page = usePage();
     const { auth } = page.props;
     const getInitials = useInitials();
+    const { mainNavItems, secondaryNavItems } = useNavigation();
 
     return (
         <>

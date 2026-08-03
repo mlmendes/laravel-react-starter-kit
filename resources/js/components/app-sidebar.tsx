@@ -13,10 +13,12 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { mainNavItems, secondaryNavItems } from '@/lib/nav-items';
+import { useNavigation } from '@/hooks/use-navigation';
 import { dashboard } from '@/routes';
 
 export function AppSidebar() {
+    const { mainNavItems, secondaryNavItems } = useNavigation();
+
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>

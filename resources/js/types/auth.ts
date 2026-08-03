@@ -16,6 +16,7 @@ export type User = SoftDeletable & {
 
 export type Auth = {
     user: User;
+    allowed_pages: string[];
 };
 
 /* @chisel-passkeys */
