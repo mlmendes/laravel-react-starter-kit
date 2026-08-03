@@ -29,14 +29,21 @@ export function NavMain({ items = [] }: { items: NavItem[] }) {
             <SidebarMenuItem className="flex" key={item.title}>
                 <SidebarMenuButton
                     className="flex-auto"
-                    asChild
-                    isActive={isCurrentUrl(item.href)}
+                    asChild={!!item.href}
+                    isActive={!!item.href && isCurrentUrl(item.href)}
                     tooltip={{ children: t(item.title) }}
                 >
-                    <Link href={item.href} prefetch>
-                        {item.icon && <item.icon />}
-                        <span>{t(item.title)}</span>
-                    </Link>
+                    {item.href ? (
+                        <Link href={item.href} prefetch>
+                            {item.icon && <item.icon />}
+                            <span>{t(item.title)}</span>
+                        </Link>
+                    ) : (
+                        <>
+                            {item.icon && <item.icon />}
+                            <span>{t(item.title)}</span>
+                        </>
+                    )}
                 </SidebarMenuButton>
                 {item.items && item.items.length > 0 && (
                     <SidebarMenuAction className="flex-none" asChild>
