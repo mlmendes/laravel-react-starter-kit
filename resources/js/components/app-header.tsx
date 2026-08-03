@@ -1,5 +1,5 @@
 import { Link, usePage } from '@inertiajs/react';
-import { Menu } from 'lucide-react';
+import { Ellipsis, Menu } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import AppLogo from '@/components/app-logo';
@@ -12,6 +12,9 @@ import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuSub,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
@@ -38,7 +41,7 @@ import { useInitials } from '@/hooks/use-initials';
 import { mainNavItems, secondaryNavItems } from '@/lib/nav-items';
 import { cn, toUrl } from '@/lib/utils';
 import { dashboard } from '@/routes';
-import type { BreadcrumbItem } from '@/types';
+import type { BreadcrumbItem, NavItem } from '@/types';
 import type { RouteDefinition } from '@/wayfinder';
 
 type Props = {
@@ -50,12 +53,114 @@ type Props = {
 const activeItemStyles =
     'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100';
 
+export function HeaderMenu({
+    item,
+    root = false,
+}: {
+    item: NavItem;
+    root?: boolean;
+}) {
+    const { t } = useTranslation();
+    const { isCurrentUrl, whenCurrentUrl } = useCurrentUrl();
+
+    return (
+        <NavigationMenuItem className="relative flex h-full items-center">
+            {item.href ? (
+                <>
+                    <Link
+                        href={item.href}
+                        className={cn(
+                            navigationMenuTriggerStyle(),
+                            whenCurrentUrl(item.href, activeItemStyles),
+                            'h-9 cursor-pointer px-3',
+                        )}
+                    >
+                        {item.icon && <item.icon className="mr-2 h-4 w-4" />}
+                        {t(item.title)}
+                    </Link>
+                    {root && isCurrentUrl(item.href) && (
+                        <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>
+                    )}
+                </>
+            ) : (
+                <div className={cn(navigationMenuTriggerStyle(), 'h-9 px-3')}>
+                    {item.icon && <item.icon className="mr-2 h-4 w-4" />}
+                    {t(item.title)}
+                </div>
+            )}
+            {item.items && item.items.length > 0 && (
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button
+                            className="aspect-square h-8 w-8 data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                            size="icon"
+                            variant="outline"
+                        >
+                            <Ellipsis />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        {item.items.map((subItem, index) => (
+                            <HeaderMenu key={index} item={subItem} />
+                        ))}
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            )}
+        </NavigationMenuItem>
+    );
+}
+
+export function MobileMenu({ item }: { item: NavItem }) {
+    const { t } = useTranslation();
+
+    if (!item.items) {
+        return undefined;
+    }
+
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button
+                    className="aspect-square h-8 w-8 data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                    size="icon"
+                    variant="outline"
+                >
+                    <Ellipsis />
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+                {item.items.map((subItem, index) => (
+                    <DropdownMenuGroup key={index} className="flex">
+                        <DropdownMenuItem asChild>
+                            {subItem.href ? (
+                                <Link href={subItem.href} prefetch>
+                                    {subItem.icon && <subItem.icon />}
+                                    <span>{t(subItem.title)}</span>
+                                </Link>
+                            ) : (
+                                <>
+                                    {subItem.icon && <subItem.icon />}
+                                    <span>{t(subItem.title)}</span>
+                                </>
+                            )}
+                        </DropdownMenuItem>
+                        {subItem.items && (
+                            <DropdownMenuSub>
+                                <MobileMenu item={subItem} />
+                            </DropdownMenuSub>
+                        )}
+                    </DropdownMenuGroup>
+                ))}
+            </DropdownMenuContent>
+        </DropdownMenu>
+    );
+}
+
 export function AppHeader({ action, breadcrumbs = [], filter }: Props) {
     const { t } = useTranslation();
     const page = usePage();
     const { auth } = page.props;
     const getInitials = useInitials();
-    const { isCurrentUrl, whenCurrentUrl } = useCurrentUrl();
 
     return (
         <>
@@ -79,7 +184,7 @@ export function AppHeader({ action, breadcrumbs = [], filter }: Props) {
                                 className="flex h-full w-64 flex-col items-stretch justify-between bg-sidebar"
                             >
                                 <SheetTitle className="sr-only">
-                                    Navigation menu
+                                    {t('Navigation menu')}
                                 </SheetTitle>
                                 <SheetHeader className="flex justify-start text-left">
                                     <AppLogoIcon className="h-6 w-6 fill-current text-black dark:text-white" />
@@ -89,18 +194,29 @@ export function AppHeader({ action, breadcrumbs = [], filter }: Props) {
                                         <div className="flex flex-col space-y-4">
                                             {mainNavItems.map((item) =>
                                                 item.href ? (
-                                                    <Link
+                                                    <div
                                                         key={item.title}
-                                                        href={item.href}
-                                                        className="flex items-center space-x-2 font-medium"
+                                                        className="flex gap-2"
                                                     >
-                                                        {item.icon && (
-                                                            <item.icon className="h-5 w-5" />
-                                                        )}
-                                                        <span>
-                                                            {t(item.title)}
-                                                        </span>
-                                                    </Link>
+                                                        <Link
+                                                            href={item.href}
+                                                            className="flex items-center space-x-2 font-medium"
+                                                        >
+                                                            {item.icon && (
+                                                                <item.icon className="h-5 w-5" />
+                                                            )}
+                                                            <span>
+                                                                {t(item.title)}
+                                                            </span>
+                                                        </Link>
+                                                        {item.items &&
+                                                            item.items.length >
+                                                                0 && (
+                                                                <MobileMenu
+                                                                    item={item}
+                                                                />
+                                                            )}
+                                                    </div>
                                                 ) : (
                                                     <div
                                                         key={item.title}
@@ -112,6 +228,13 @@ export function AppHeader({ action, breadcrumbs = [], filter }: Props) {
                                                         <span>
                                                             {t(item.title)}
                                                         </span>
+                                                        {item.items &&
+                                                            item.items.length >
+                                                                0 && (
+                                                                <MobileMenu
+                                                                    item={item}
+                                                                />
+                                                            )}
                                                     </div>
                                                 ),
                                             )}
@@ -168,46 +291,7 @@ export function AppHeader({ action, breadcrumbs = [], filter }: Props) {
                         <NavigationMenu className="flex h-full items-stretch">
                             <NavigationMenuList className="flex h-full items-stretch space-x-2">
                                 {mainNavItems.map((item, index) => (
-                                    <NavigationMenuItem
-                                        key={index}
-                                        className="relative flex h-full items-center"
-                                    >
-                                        {item.href ? (
-                                            <>
-                                                <Link
-                                                    href={item.href}
-                                                    className={cn(
-                                                        navigationMenuTriggerStyle(),
-                                                        whenCurrentUrl(
-                                                            item.href,
-                                                            activeItemStyles,
-                                                        ),
-                                                        'h-9 cursor-pointer px-3',
-                                                    )}
-                                                >
-                                                    {item.icon && (
-                                                        <item.icon className="mr-2 h-4 w-4" />
-                                                    )}
-                                                    {t(item.title)}
-                                                </Link>
-                                                {isCurrentUrl(item.href) && (
-                                                    <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>
-                                                )}
-                                            </>
-                                        ) : (
-                                            <div
-                                                className={cn(
-                                                    navigationMenuTriggerStyle(),
-                                                    'h-9 px-3',
-                                                )}
-                                            >
-                                                {item.icon && (
-                                                    <item.icon className="mr-2 h-4 w-4" />
-                                                )}
-                                                {t(item.title)}
-                                            </div>
-                                        )}
-                                    </NavigationMenuItem>
+                                    <HeaderMenu key={index} item={item} root />
                                 ))}
                             </NavigationMenuList>
                         </NavigationMenu>
