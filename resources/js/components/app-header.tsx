@@ -74,6 +74,7 @@ export function AppHeader({ action, breadcrumbs = [], filter }: Props) {
                                 </Button>
                             </SheetTrigger>
                             <SheetContent
+                                aria-describedby={undefined}
                                 side="left"
                                 className="flex h-full w-64 flex-col items-stretch justify-between bg-sidebar"
                             >
