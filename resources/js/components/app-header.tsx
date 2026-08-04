@@ -1,5 +1,5 @@
 import { Link, usePage } from '@inertiajs/react';
-import { Ellipsis, Menu } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import AppLogo from '@/components/app-logo';
@@ -7,14 +7,12 @@ import AppLogoIcon from '@/components/app-logo-icon';
 import { Breadcrumbs } from '@/components/breadcrumbs';
 import CreateButton from '@/components/create-button';
 import { LanguageSwitcher } from '@/components/language-switcher';
+import MultiLevelSubMenu from '@/components/multi-level-sub-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuSub,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
@@ -41,7 +39,7 @@ import { useInitials } from '@/hooks/use-initials';
 import { useNavigation } from '@/hooks/use-navigation';
 import { cn, toUrl } from '@/lib/utils';
 import { dashboard } from '@/routes';
-import type { BreadcrumbItem, NavItem } from '@/types';
+import type { BreadcrumbItem } from '@/types';
 import type { RouteDefinition } from '@/wayfinder';
 
 type Props = {
@@ -53,114 +51,12 @@ type Props = {
 const activeItemStyles =
     'text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100';
 
-export function HeaderMenu({
-    item,
-    root = false,
-}: {
-    item: NavItem;
-    root?: boolean;
-}) {
-    const { t } = useTranslation();
-    const { isCurrentUrl, whenCurrentUrl } = useCurrentUrl();
-
-    return (
-        <NavigationMenuItem className="relative flex h-full items-center">
-            {item.href ? (
-                <>
-                    <Link
-                        href={item.href}
-                        className={cn(
-                            navigationMenuTriggerStyle(),
-                            whenCurrentUrl(item.href, activeItemStyles),
-                            'h-9 cursor-pointer px-3',
-                        )}
-                    >
-                        {item.icon && <item.icon className="mr-2 h-4 w-4" />}
-                        {t(item.title)}
-                    </Link>
-                    {root && isCurrentUrl(item.href) && (
-                        <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>
-                    )}
-                </>
-            ) : (
-                <div className={cn(navigationMenuTriggerStyle(), 'h-9 px-3')}>
-                    {item.icon && <item.icon className="mr-2 h-4 w-4" />}
-                    {t(item.title)}
-                </div>
-            )}
-            {item.items && item.items.length > 0 && (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button
-                            className="aspect-square h-8 w-8 data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                            size="icon"
-                            variant="outline"
-                        >
-                            <Ellipsis />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                        {item.items.map((subItem, index) => (
-                            <HeaderMenu key={index} item={subItem} />
-                        ))}
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            )}
-        </NavigationMenuItem>
-    );
-}
-
-export function MobileMenu({ item }: { item: NavItem }) {
-    const { t } = useTranslation();
-
-    if (!item.items) {
-        return undefined;
-    }
-
-    return (
-        <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <Button
-                    className="aspect-square h-8 w-8 data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                    size="icon"
-                    variant="outline"
-                >
-                    <Ellipsis />
-                </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-                {item.items.map((subItem, index) => (
-                    <DropdownMenuGroup key={index} className="flex">
-                        <DropdownMenuItem asChild>
-                            {subItem.href ? (
-                                <Link href={subItem.href} prefetch>
-                                    {subItem.icon && <subItem.icon />}
-                                    <span>{t(subItem.title)}</span>
-                                </Link>
-                            ) : (
-                                <>
-                                    {subItem.icon && <subItem.icon />}
-                                    <span>{t(subItem.title)}</span>
-                                </>
-                            )}
-                        </DropdownMenuItem>
-                        {subItem.items && (
-                            <DropdownMenuSub>
-                                <MobileMenu item={subItem} />
-                            </DropdownMenuSub>
-                        )}
-                    </DropdownMenuGroup>
-                ))}
-            </DropdownMenuContent>
-        </DropdownMenu>
-    );
-}
-
 export function AppHeader({ action, breadcrumbs = [], filter }: Props) {
     const { t } = useTranslation();
     const page = usePage();
     const { auth } = page.props;
     const getInitials = useInitials();
+    const { isCurrentUrl, whenCurrentUrl } = useCurrentUrl();
     const { mainNavItems, secondaryNavItems } = useNavigation();
 
     return (
@@ -213,7 +109,7 @@ export function AppHeader({ action, breadcrumbs = [], filter }: Props) {
                                                         {item.items &&
                                                             item.items.length >
                                                                 0 && (
-                                                                <MobileMenu
+                                                                <MultiLevelSubMenu
                                                                     item={item}
                                                                 />
                                                             )}
@@ -232,7 +128,7 @@ export function AppHeader({ action, breadcrumbs = [], filter }: Props) {
                                                         {item.items &&
                                                             item.items.length >
                                                                 0 && (
-                                                                <MobileMenu
+                                                                <MultiLevelSubMenu
                                                                     item={item}
                                                                 />
                                                             )}
@@ -292,7 +188,52 @@ export function AppHeader({ action, breadcrumbs = [], filter }: Props) {
                         <NavigationMenu className="flex h-full items-stretch">
                             <NavigationMenuList className="flex h-full items-stretch space-x-2">
                                 {mainNavItems.map((item, index) => (
-                                    <HeaderMenu key={index} item={item} root />
+                                    <NavigationMenuItem
+                                        key={index}
+                                        className="relative flex h-full items-center"
+                                    >
+                                        {item.href ? (
+                                            <>
+                                                <Link
+                                                    href={item.href}
+                                                    className={cn(
+                                                        navigationMenuTriggerStyle(),
+                                                        whenCurrentUrl(
+                                                            item.href,
+                                                            activeItemStyles,
+                                                        ),
+                                                        'h-9 cursor-pointer px-3',
+                                                    )}
+                                                >
+                                                    {item.icon && (
+                                                        <item.icon className="mr-2 h-4 w-4" />
+                                                    )}
+                                                    {t(item.title)}
+                                                </Link>
+                                                {isCurrentUrl(item.href) && (
+                                                    <div className="absolute bottom-0 left-0 h-0.5 w-full translate-y-px bg-black dark:bg-white"></div>
+                                                )}
+                                            </>
+                                        ) : (
+                                            <div
+                                                className={cn(
+                                                    navigationMenuTriggerStyle(),
+                                                    'h-9 px-3',
+                                                )}
+                                            >
+                                                {item.icon && (
+                                                    <item.icon className="mr-2 h-4 w-4" />
+                                                )}
+                                                {t(item.title)}
+                                            </div>
+                                        )}
+                                        {item.items &&
+                                            item.items.length > 0 && (
+                                                <MultiLevelSubMenu
+                                                    item={item}
+                                                />
+                                            )}
+                                    </NavigationMenuItem>
                                 ))}
                             </NavigationMenuList>
                         </NavigationMenu>

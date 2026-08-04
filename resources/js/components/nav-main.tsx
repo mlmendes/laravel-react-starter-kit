@@ -1,12 +1,6 @@
 import { Link } from '@inertiajs/react';
-import { Ellipsis } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@/components/ui/button';
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+import MultiLevelSubMenu from '@/components/multi-level-sub-menu';
 import {
     SidebarGroup,
     SidebarGroupLabel,
@@ -46,28 +40,10 @@ export function NavItemDropdownMenu({ item }: { item: NavItem }) {
             </SidebarMenuButton>
             {item.items && item.items.length > 0 && (
                 <SidebarMenuAction className="flex-none" asChild>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger
-                            asChild
-                            hidden={state === 'collapsed'}
-                        >
-                            <Button
-                                className="aspect-square h-8 w-8 data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                                size="icon"
-                                variant="outline"
-                            >
-                                <Ellipsis />
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                            {item.items.map((subItem, index) => (
-                                <NavItemDropdownMenu
-                                    item={subItem}
-                                    key={index}
-                                />
-                            ))}
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                    <MultiLevelSubMenu
+                        item={item}
+                        hidden={state === 'collapsed'}
+                    />
                 </SidebarMenuAction>
             )}
         </SidebarMenuItem>
