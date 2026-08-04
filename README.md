@@ -18,6 +18,7 @@ I was tired of configuring the same boilerplate every time I started a new Larav
 - **Soft delete** on Users model
 - **User profile picture** a.k.a. avatar
 - **Email verification** enabled by default
+- **Email OTP 2FA** powered by `spatie/laravel-one-time-passwords`
 - **User email invitations** powered by `spatie/laravel-welcome-notification`
 - **User activity logging** powered by `spatie/laravel-activitylog` with preconfigured one-year cleanup
 - **Role-Based Access Control** powered by `spatie/laravel-permission`
@@ -25,7 +26,8 @@ I was tired of configuring the same boilerplate every time I started a new Larav
     1. Brazilian Portuguese
     2. English
 
-### A few UI/UX features
+### UI/UX features
+- **Multi-level** sidebar/header navigation menu
 - **Infinite scroll list** schema created with reusable component
 - **Unified navigation links** for both _header_ and _sidebar_ layouts
 - **Rich colors:** `shadcn sonner` with `richColors` enabled by default
