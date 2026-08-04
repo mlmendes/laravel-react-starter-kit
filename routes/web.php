@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\OtpController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
@@ -23,5 +24,9 @@ Route::middleware(WelcomesNewUsers::class)->group(function (): void {
     Route::get('welcome/{user}', [WelcomeController::class, 'showWelcomeForm'])->name('welcome');
     Route::post('welcome/{user}', [WelcomeController::class, 'savePassword'])->name('welcome.store');
 });
+
+Route::get(uri: 'otp-challenge', action: [OtpController::class, 'show'])->name('otp-challenge.show');
+Route::post(uri: 'otp-challenge', action: [OtpController::class, 'store'])->name('otp-challenge.store');
+Route::put(uri: 'otp-challenge', action: [OtpController::class, 'update'])->name('otp-challenge.update');
 
 require __DIR__.'/settings.php';

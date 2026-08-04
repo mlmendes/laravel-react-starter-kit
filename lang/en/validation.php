@@ -205,6 +205,7 @@ return [
         'password_confirmation' => 'Confirme a Senha',
         'permissions' => 'Permissions',
         'roles' => 'Níveis de acesso',
+        'code' => 'Code',
     ],
 
 ];

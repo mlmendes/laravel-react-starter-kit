@@ -174,4 +174,6 @@ return [
         ]),
     ],
 
+    'force-2fa' => env('SESSION_FORCE_2FA', false),
+
 ];

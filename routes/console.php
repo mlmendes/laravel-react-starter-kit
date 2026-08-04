@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\OneTimePassword;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
@@ -9,3 +10,7 @@ Artisan::command('inspire', function (): void {
 })->purpose('Display an inspiring quote');
 
 Schedule::command('activitylog:clean --force')->daily();
+
+Schedule::command('model:prune', [
+    '--model' => [OneTimePassword::class],
+])->daily();

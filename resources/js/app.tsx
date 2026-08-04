@@ -2,6 +2,7 @@ import { createInertiaApp } from '@inertiajs/react';
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import Backend from 'i18next-http-backend';
+import ICU from 'i18next-icu';
 import { initReactI18next } from 'react-i18next';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -32,6 +33,7 @@ const convertLaravelPlaceholders = (
 
 i18n.use(Backend)
     .use(LanguageDetector)
+    .use(ICU)
     .use(initReactI18next)
     .init({
         fallbackLng: 'en',

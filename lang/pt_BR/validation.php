@@ -163,5 +163,6 @@ return [
         'password_confirmation' => 'Confirme a Senha',
         'permissions' => 'Permissões',
         'roles' => 'Níveis de acesso',
+        'code' => 'Código',
     ],
 ];

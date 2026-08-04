@@ -63,6 +63,7 @@
     "Enter recovery code": "Insira o código de recuperação",
     "Enter the 6-digit code from your authenticator app": "Insira o código de 6 dígitos do seu aplicativo autenticador",
     "Enter the authentication code provided by your authenticator application.": "Insira o código de autenticação fornecido pelo seu aplicativo autenticador.",
+    "Enter the single use code we've just sent to your email": "Insira o código de uso único que acabamos de enviar para o seu e-mail",
     "Enter your details below to create your account": "Insira seus dados abaixo para criar sua conta",
     "Enter your email and password below to log in": "Insira seu e-mail e senha abaixo para entrar",
     "Enter your email to receive a password reset link": "Insira seu e-mail para receber um link para redefinir sua senha",
@@ -107,6 +108,7 @@
     "New password": "Nova senha",
     "No passkeys yet": "Ainda não há chaves de acesso",
     "Not Found": "Não encontrado",
+    "OTP session expired. Try to login again.": "Sessão de senha de uso único expirada. Tente entrar novamente.",
     "Once your account is deleted, all of its resources and data will also be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.": "Após a exclusão da sua conta, todos os seus recursos e dados também serão apagados permanentemente. Digite sua senha para confirmar que deseja excluir sua conta permanentemente.",
     "Or confirm with password": "Ou confirmar com senha",
     "Or continue with email": "Ou continue por e-mail",
@@ -200,6 +202,7 @@
     "Update the appearance settings for your account": "Atualize as configurações de aparência da sua conta",
     "Update your name and email address": "Atualize seu nome e endereço de e-mail",
     "User": "Usuário",
+    "User not found": "Usuário não encontrado",
     "User search": "Pesquisa de usuário",
     "Users": "Usuários",
     "Verify Email Address": "Verificar endereço de e-mail",
@@ -230,5 +233,6 @@
     "results": "resultados",
     "role": "nível de acesso",
     "to": "a",
-    "user": "usuário"
+    "user": "usuário",
+    "{cooldown, plural, =0 {Resend code} =1 {Resend in {cooldown} second} other {Resend in {cooldown} seconds}}": "{cooldown, plural, =0 {Reenviar código} =1 {Reenviar em {cooldown} segundo} other {Reenviar em {cooldown} segundos}}"
 }
