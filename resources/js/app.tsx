@@ -20,7 +20,7 @@ const convertLaravelPlaceholders = (
     obj: TranslationResource,
 ): TranslationResource => {
     if (typeof obj === 'string') {
-        return obj.replace(/:([a-zA-Z_]\w*)/g, '{{$1}}');
+        return obj.replace(/:([a-zA-Z_]\w*)/g, '{$1}');
     }
 
     const entries = Object.entries(obj).map(([key, value]) => [
