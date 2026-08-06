@@ -61,6 +61,7 @@ export default function Profile() {
 
                 <Form
                     action={avatar.upload().url}
+                    className="justify-items-center lg:justify-items-start"
                     disableWhileProcessing
                     method={avatar.upload().method}
                     ref={formRef}
@@ -76,7 +77,7 @@ export default function Profile() {
                                 setImage={setImage}
                             />
                             <FieldError>{errors.avatar}</FieldError>
-                            <Button type="button" onClick={handleSubmit}>
+                            <Button className="w-62.5" type="button" onClick={handleSubmit}>
                                 {t('Save')}
                             </Button>
                         </FieldSet>
