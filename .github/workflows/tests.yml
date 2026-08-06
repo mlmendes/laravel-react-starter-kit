@@ -24,11 +24,6 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Create required directories & set permissions
-        run: |
-          mkdir -p bootstrap/cache storage/framework/{sessions,views,cache}
-          chmod -R 775 bootstrap/cache storage
-
       - name: Setup PHP
         uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2
         with:
