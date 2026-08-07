@@ -77,7 +77,11 @@ export default function Profile() {
                                 setImage={setImage}
                             />
                             <FieldError>{errors.avatar}</FieldError>
-                            <Button className="w-62.5" type="button" onClick={handleSubmit}>
+                            <Button
+                                className="w-62.5"
+                                type="button"
+                                onClick={handleSubmit}
+                            >
                                 {t('Save')}
                             </Button>
                         </FieldSet>
