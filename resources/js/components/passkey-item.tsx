@@ -15,7 +15,7 @@ import type { Passkey } from '@/types/auth';
 
 type Props = {
     passkey: Passkey;
-    onDelete: (id: number, onError: () => void) => void;
+    onDelete: (id: string, onError: () => void) => void;
 };
 
 export default function PasskeyItem({ passkey, onDelete }: Props) {
@@ -28,7 +28,7 @@ export default function PasskeyItem({ passkey, onDelete }: Props) {
     };
 
     return (
-        <div className="flex items-center justify-between border-b p-4 last:border-b-0">
+        <div className="flex items-center justify-between border-b p-4">
             <div className="flex items-center gap-4">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-muted">
                     <KeyRound className="h-5 w-5 text-muted-foreground" />
@@ -45,13 +45,13 @@ export default function PasskeyItem({ passkey, onDelete }: Props) {
                         )}
                     </div>
                     <p className="text-sm text-muted-foreground">
-                        Added {passkey.created_at_diff}
+                        {t('Added')} {passkey.created_at_diff}
                         {passkey.last_used_at_diff && (
                             <>
                                 <span className="mx-1 text-muted-foreground/50">
                                     /
                                 </span>
-                                Last used {passkey.last_used_at_diff}
+                                {t('Last used')} {passkey.last_used_at_diff}
                             </>
                         )}
                     </p>

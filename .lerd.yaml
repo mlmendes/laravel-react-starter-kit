@@ -8,3 +8,5 @@ secured: true
 services:
   - mailpit
   - redis
+workers:
+  - vite

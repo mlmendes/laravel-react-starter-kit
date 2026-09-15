@@ -57,7 +57,7 @@ export default function PasskeyVerify({
                         : (label ?? t('Sign in with a passkey'))}
                 </Button>
                 {error && (
-                    <InputError message={error} className="text-center" />
+                    <InputError message={t(error)} className="text-center" />
                 )}
             </div>
 
